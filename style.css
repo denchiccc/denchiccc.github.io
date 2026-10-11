@@ -26,10 +26,10 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Скругления и тени */
-  --arch-radius: 140px 140px 20px 20px;
-  --arch-inner-radius: 132px 132px 16px 16px;
-  --radius-card: 20px;
+  /* Скругления и тени (прямоугольные окна без скруглений сверху) */
+  --arch-radius: 0;
+  --arch-inner-radius: 0;
+  --radius-card: 16px;
   --radius-pill: 9999px;
 
   --shadow-deep: 0 20px 45px rgba(10, 20, 14, 0.6);
@@ -637,14 +637,14 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-card);
 }
 
-/* Сама форма арочного окна (Arch Window) */
+/* Сама форма прямоугольного окна для фото (без скруглений сверху) */
 .arch-window {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5.2;
-  border-radius: var(--arch-radius);
+  aspect-ratio: 4 / 4.7;
+  border-radius: 0;
   background: radial-gradient(circle at 50% 25%, #274936 0%, #193123 90%);
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  border: 1px solid rgba(212, 175, 55, 0.25);
   box-shadow: var(--shadow-arch);
   overflow: hidden;
   display: flex;
@@ -656,22 +656,22 @@ h1, h2, h3, h4 {
 .arch-card:hover .arch-window {
   transform: translateY(-6px);
   border-color: var(--accent-gold);
-  box-shadow: var(--shadow-hover), 0 0 25px rgba(212, 175, 55, 0.18);
+  box-shadow: var(--shadow-hover), 0 0 25px rgba(212, 175, 55, 0.22);
 }
 
-/* Внутреннее свечение сверху арки */
+/* Внутреннее свечение сверху окна */
 .arch-inner-glow {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 45%;
-  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.12) 0%, transparent 75%);
+  height: 35%;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
   pointer-events: none;
   z-index: 2;
 }
 
-/* Контейнер изображения внутри арки */
+/* Контейнер изображения внутри окна */
 .arch-image-wrapper {
   position: relative;
   width: 100%;
@@ -679,7 +679,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px 18px 30px;
+  padding: 14px 14px 26px;
   z-index: 1;
 }
 
@@ -687,22 +687,22 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 124px 124px 10px 10px;
+  border-radius: 0;
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
   filter: contrast(1.02);
 }
 
 .arch-card:hover .arch-project-img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
-/* Архитектурный пьедестал в основании арки */
+/* Архитектурный пьедестал в основании окна */
 .arch-pedestal {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 38px;
+  height: 34px;
   background: linear-gradient(180deg, rgba(20, 38, 28, 0) 0%, rgba(15, 29, 21, 0.85) 60%, #12241a 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   z-index: 2;
@@ -1138,7 +1138,12 @@ h1, h2, h3, h4 {
    АДАПТИВНОСТЬ ПОД ВСЕ УСТРОЙСТВА (RESPONSIVE DESIGN)
    ========================================================================== */
 
-/* Ноутбуки и планшеты (до 1080px) */
+/* ==========================================================================
+   АДАПТИВНОСТЬ ПОД ВСЕ УСТРОЙСТВА (RESPONSIVE DESIGN)
+   320px, 375px, 414px, 480px, 768px, 1024px, 1440px
+   ========================================================================== */
+
+/* 1. Планшеты и компактные ноутбуки (до 1080px) */
 @media (max-width: 1080px) {
   .hero-container {
     grid-template-columns: 1fr;
@@ -1165,7 +1170,8 @@ h1, h2, h3, h4 {
   }
 
   .profile-floating-badge {
-    left: 20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .services-grid {
@@ -1186,29 +1192,59 @@ h1, h2, h3, h4 {
   }
 }
 
-/* Планшеты и крупные мобильные (до 768px) */
+/* 2. Планшеты и смартфоны (до 768px) */
 @media (max-width: 768px) {
+  /* Фиксация переполнения по горизонтали */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
   .site-header {
-    padding: 12px 0;
+    padding: 10px 0;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
   }
 
   .mobile-toggle {
     display: flex;
+    z-index: 1001;
   }
 
+  /* Анимированная иконка бургера в крестик */
+  .mobile-toggle.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+  .mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-toggle.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+
+  /* Выпадающее мобильное меню */
   .main-nav {
     position: fixed;
-    top: 65px;
+    top: 60px;
     left: 0;
     right: 0;
-    background: #13241b;
-    border-bottom: 1px solid var(--border-subtle);
-    padding: 24px;
-    transform: translateY(-120%);
+    background: rgba(18, 34, 24, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-glow);
+    padding: 24px 20px;
+    transform: translateY(-130%);
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
   }
 
   .main-nav.active {
@@ -1219,92 +1255,241 @@ h1, h2, h3, h4 {
 
   .nav-links {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     text-align: center;
   }
 
   .nav-links a {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     display: block;
-    padding: 8px 0;
+    padding: 10px 0;
   }
 
   .header-cta {
     display: none;
   }
 
+  /* ГЛАВНЫЙ ЭКРАН (HERO) НА МОБИЛЬНЫХ */
   .hero-section {
-    padding: 40px 0 60px;
+    padding: 30px 0 50px;
   }
 
+  .hero-container {
+    gap: 36px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    line-height: 1.15;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  /* Аккуратная 3-колоночная плашка статистики */
   .hero-stats {
-    flex-direction: column;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
     width: 100%;
-    align-items: center;
+    max-width: 440px;
+    padding: 14px 10px;
+    margin: 0 auto 24px;
+    text-align: center;
   }
 
   .stat-divider {
-    width: 60px;
-    height: 1px;
+    display: none;
   }
 
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+
+  /* Пропорциональная прямоугольная рама фотографии профиля */
   .profile-arch-frame {
-    max-width: 320px;
-    height: 420px;
-  }
-
-  .arches-grid {
-    grid-template-columns: 1fr;
-    max-width: 380px;
+    width: 100%;
+    max-width: 290px;
+    height: auto;
+    aspect-ratio: 3.5 / 4.4;
     margin: 0 auto;
+    border-radius: 0;
   }
 
-  .arch-window {
-    aspect-ratio: 4 / 5.2;
+  .profile-floating-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 260px;
+    padding: 8px 12px;
+    justify-content: center;
   }
 
-  .contact-card-wrapper {
-    padding: 36px 20px;
-    border-radius: 24px;
+  .badge-icon {
+    font-size: 1.25rem;
   }
 
-  .contacts-grid {
-    grid-template-columns: 1fr;
+  .badge-title {
+    font-size: 0.78rem;
   }
 
-  .modal-window {
-    grid-template-columns: 1fr;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  .modal-arch-container {
-    padding: 20px 20px 0;
-  }
-
-  .modal-arch-img {
-    max-height: 280px;
-  }
-
-  .modal-content-panel {
-    padding: 24px 20px;
-  }
-}
-
-/* Компактные телефоны (до 480px) */
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 2.2rem;
+  .badge-sub {
+    font-size: 0.68rem;
   }
 
   .hero-cta-group {
-    flex-direction: column;
     width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .hero-cta-group .btn {
     width: 100%;
+  }
+
+  /* Свайп-фильтры по проектам в стиле нативных мобильных приложений */
+  .portfolio-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    padding: 6px 16px 14px;
+    margin: 20px -16px 36px;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+
+  .portfolio-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+
+  /* Сетка арочных окошек */
+  .arches-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+    gap: 36px;
+  }
+
+  .arch-title {
+    font-size: 1.3rem;
+  }
+
+  .arch-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .arch-link-btn {
+    padding: 10px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* Контакты: вертикальные плитки, удобные под палец */
+  .contact-card-wrapper {
+    padding: 28px 16px;
+    border-radius: 20px;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .contact-icon-box {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .contact-info {
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .contact-action {
+    font-size: 0.78rem;
+  }
+
+  /* Модальное окно просмотра проекта на мобильных */
+  .modal-window {
+    grid-template-columns: 1fr;
+    width: calc(100% - 24px);
+    max-height: 88vh;
+    border-radius: 20px;
+    overflow-y: auto;
+    margin: auto;
+  }
+
+  .modal-arch-container {
+    padding: 18px 18px 0;
+  }
+
+  .modal-arch-img {
+    max-height: 240px;
+  }
+
+  .modal-content-panel {
+    padding: 20px 18px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* 3. Компактные смартфоны (iPhone SE, 320px - 400px) */
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: 1.85rem;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .stat-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+  }
+
+  .stat-number {
+    font-size: 1.25rem;
+  }
+
+  .profile-arch-frame {
+    max-width: 250px;
   }
 
   .services-grid {
@@ -1317,7 +1502,7 @@ h1, h2, h3, h4 {
 
   .footer-container {
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
     text-align: center;
   }
 }

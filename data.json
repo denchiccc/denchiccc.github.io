@@ -12,7 +12,9 @@
     "accuracy": "100%",
     "telegram": "https://t.me/your_telegram",
     "telegramHandle": "@your_telegram",
-    "whatsapp": "https://wa.me/79990000000",
+    "max": "https://max.ru",
+    "maxPhone": "+7 (999) 000-00-00",
+    "whatsapp": "https://max.ru",
     "whatsappPhone": "+7 (999) 000-00-00",
     "phone": "+7 (999) 000-00-00",
     "email": "designer@example.com"

@@ -26,7 +26,7 @@
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Montserrat', sans-serif;
       --radius: 12px;
-      --arch-radius: 90px 90px 14px 14px;
+      --arch-radius: 0;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -238,8 +238,8 @@
     }
     .preview-arch-mini {
       width: 100px;
-      height: 125px;
-      border-radius: 48px 48px 10px 10px;
+      height: 120px;
+      border-radius: 0;
       overflow: hidden;
       border: 1px solid var(--accent-gold);
       background: #102117;
@@ -510,8 +510,18 @@
 
     @media (max-width: 768px) {
       .form-grid { grid-template-columns: 1fr; }
-      .header-content { flex-direction: column; align-items: flex-start; }
-      .header-actions { width: 100%; justify-content: space-between; }
+      .header-content { flex-direction: column; align-items: stretch; gap: 12px; }
+      .header-actions { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+      .header-actions .btn { flex: 1; padding: 8px 10px; font-size: 0.8rem; justify-content: center; }
+      .container { padding: 0 16px; margin-top: 16px; }
+      .admin-tabs { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+      .admin-tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { white-space: nowrap; flex-shrink: 0; padding: 10px 14px; font-size: 0.86rem; }
+      .card { padding: 20px 16px; border-radius: 16px; }
+      .image-uploader-box { flex-direction: column; text-align: center; }
+      .uploader-controls { width: 100%; }
+      .projects-admin-grid { grid-template-columns: 1fr; }
+      .admin-modal-body { padding: 24px 16px; border-radius: 20px; width: 95%; max-height: 88vh; }
     }
   </style>
 </head>
@@ -677,13 +687,13 @@
           </div>
 
           <div class="form-group">
-            <label>WhatsApp (ссылка)</label>
-            <input type="url" id="contactWhatsapp" placeholder="https://wa.me/79990000000">
+            <label>Мессенджер MAX (ссылка)</label>
+            <input type="url" id="contactMax" placeholder="https://max.ru/u/your_id">
           </div>
 
           <div class="form-group">
-            <label>WhatsApp (отображаемый номер)</label>
-            <input type="text" id="contactWhatsappPhone" placeholder="+7 (999) 000-00-00">
+            <label>Мессенджер MAX (номер / ID)</label>
+            <input type="text" id="contactMaxPhone" placeholder="+7 (999) 000-00-00">
           </div>
 
           <div class="form-group">
@@ -733,6 +743,9 @@
           </label>
           <input type="file" id="importJsonFile" accept=".json" style="display: none;">
         </div>
+      </div>
+    </div>
+
     <!-- 4. ВКЛАДКА: БЕЗОПАСНОСТЬ И ПАРОЛЬ -->
     <div id="tab-security" class="tab-content">
       <div class="card">
@@ -879,22 +892,43 @@
     }
 
     // 1. Загрузка данных с сервера или data.json
+    // 1. Загрузка данных с сервера, localStorage или data.json
     async function loadData() {
-      try {
-        const res = await fetch('/api/data');
-        if (!res.ok) throw new Error('API недоступен');
-        state = await res.json();
-      } catch (err) {
+      // Сначала проверяем сохраненные данные в этом браузере
+      const localSaved = localStorage.getItem('mebel_portfolio_data');
+      if (localSaved) {
         try {
-          const fallbackRes = await fetch('data.json');
-          if (fallbackRes.ok) {
-            state = await fallbackRes.json();
-          } else {
-            throw new Error('data.json недоступен');
+          const parsed = JSON.parse(localSaved);
+          if (parsed.profile && parsed.projects) {
+            state = parsed;
+            renderProfile();
+            renderProjects();
+            return;
           }
-        } catch (e2) {
-          showToast('Загружены локальные данные браузера', 'info');
+        } catch (e) {}
+      }
+
+      // Если запущено локально — проверяем сервер
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        try {
+          const res = await fetch('/api/data');
+          if (res.ok) {
+            state = await res.json();
+            renderProfile();
+            renderProjects();
+            return;
+          }
+        } catch (err) {}
+      }
+
+      // Если сервер недоступен (GitHub Pages) — читаем файл data.json
+      try {
+        const fallbackRes = await fetch('data.json');
+        if (fallbackRes.ok) {
+          state = await fallbackRes.json();
         }
+      } catch (err) {
+        console.warn('Не удалось прочитать data.json', err);
       }
       renderProfile();
       renderProjects();
@@ -917,8 +951,12 @@
 
       document.getElementById('contactTelegram').value = p.telegram || '';
       document.getElementById('contactTelegramHandle').value = p.telegramHandle || '';
-      document.getElementById('contactWhatsapp').value = p.whatsapp || '';
-      document.getElementById('contactWhatsappPhone').value = p.whatsappPhone || '';
+      
+      const maxInp = document.getElementById('contactMax');
+      if (maxInp) maxInp.value = p.max || p.whatsapp || '';
+      const maxPhInp = document.getElementById('contactMaxPhone');
+      if (maxPhInp) maxPhInp.value = p.maxPhone || p.whatsappPhone || '';
+
       document.getElementById('contactPhone').value = p.phone || '';
       document.getElementById('contactEmail').value = p.email || '';
     }
@@ -957,26 +995,31 @@
       });
     }
 
-    // Функция сжатия изображения в браузере (чтобы фото легко загружалось и работало на GitHub Pages)
-    async function compressImage(file, maxWidth = 1280, quality = 0.85) {
+    // Функция сжатия изображения в браузере (быстро, легко и работает на GitHub Pages)
+    async function compressImage(file, maxWidth = 960, quality = 0.8) {
       return new Promise((resolve) => {
+        if (!file) return resolve('');
         const reader = new FileReader();
         reader.onload = (e) => {
           const img = new Image();
           img.onload = () => {
-            const canvas = document.createElement('canvas');
-            let width = img.width;
-            let height = img.height;
-            if (width > maxWidth) {
-              height = Math.round((height * maxWidth) / width);
-              width = maxWidth;
+            try {
+              const canvas = document.createElement('canvas');
+              let width = img.width;
+              let height = img.height;
+              if (width > maxWidth) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+              }
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+              const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+              resolve(compressedDataUrl);
+            } catch (err) {
+              resolve(e.target.result);
             }
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
-            resolve(compressedDataUrl);
           };
           img.onerror = () => resolve(e.target.result);
           img.src = e.target.result;
@@ -986,34 +1029,35 @@
       });
     }
 
-    // 4. Загрузка фото: работает как с локальным сервером, так и прямо в браузере на GitHub Pages!
+    // 4. Загрузка фото: мгновенно оптимизирует файл с компьютера и сохраняет
     async function uploadImageFile(file) {
-      // 1. Оптимизируем изображение прямо в браузере
+      // 1. Оптимизируем изображение прямо в браузере (легкий вес для мобильных и веба)
       const base64Data = await compressImage(file);
       if (!base64Data) throw new Error('Не удалось прочитать выбранный файл');
 
-      // 2. Пробуем отправить на сервер (если запущен локальный Python-сервер)
-      try {
-        const res = await fetch('/api/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            filename: file.name,
-            data: base64Data
-          })
-        });
-        if (res.ok) {
-          const result = await res.json();
-          if (result.success && result.url) {
-            return result.url;
+      // 2. Если запущен локальный сервер Python — сохраняем в папку uploads
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        try {
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: file.name,
+              data: base64Data
+            })
+          });
+          if (res.ok) {
+            const result = await res.json();
+            if (result.success && result.url) {
+              return result.url;
+            }
           }
+        } catch (err) {
+          // Игнорируем, переходим к прямому Data URL
         }
-      } catch (err) {
-        // Локальный сервер недоступен (сайт открыт на GitHub Pages)
       }
 
-      // 3. Если сервера нет (GitHub Pages), отдаем Data URL напрямую!
-      // Фото мгновенно вставляется в проект и корректно сохраняется в data.json без ошибок!
+      // 3. Для GitHub Pages — используем Data URL (работает 100% без бэкенда)
       return base64Data;
     }
 
@@ -1022,14 +1066,16 @@
       const file = e.target.files[0];
       if (!file) return;
       try {
-        showToast('Загрузка фотографии...');
+        showToast('Оптимизация и загрузка фото...');
         const url = await uploadImageFile(file);
         document.getElementById('profilePhotoPreview').src = url;
         document.getElementById('profilePhotoUrl').value = url;
         state.profile.photo = url;
-        showToast('Фото профиля успешно загружено!');
+        showToast('Фото профиля успешно прикреплено!');
       } catch (err) {
         showToast('Ошибка загрузки: ' + err.message, 'error');
+      } finally {
+        e.target.value = '';
       }
     });
 
@@ -1043,13 +1089,15 @@
       const file = e.target.files[0];
       if (!file) return;
       try {
-        showToast('Загрузка фото изделия...');
+        showToast('Оптимизация и загрузка фото изделия...');
         const url = await uploadImageFile(file);
         document.getElementById('projectPhotoPreview').src = url;
         document.getElementById('projectPhotoUrl').value = url;
-        showToast('Фото изделия успешно загружено!');
+        showToast('Фото изделия успешно прикреплено!');
       } catch (err) {
         showToast('Ошибка загрузки: ' + err.message, 'error');
+      } finally {
+        e.target.value = '';
       }
     });
 
@@ -1073,8 +1121,10 @@
         photo: document.getElementById('profilePhotoUrl').value,
         telegram: document.getElementById('contactTelegram').value,
         telegramHandle: document.getElementById('contactTelegramHandle').value,
-        whatsapp: document.getElementById('contactWhatsapp').value,
-        whatsappPhone: document.getElementById('contactWhatsappPhone').value,
+        max: (document.getElementById('contactMax') || {}).value || '',
+        maxPhone: (document.getElementById('contactMaxPhone') || {}).value || '',
+        whatsapp: (document.getElementById('contactMax') || {}).value || '',
+        whatsappPhone: (document.getElementById('contactMaxPhone') || {}).value || '',
         phone: document.getElementById('contactPhone').value,
         email: document.getElementById('contactEmail').value
       };

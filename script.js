@@ -96,15 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tgH) tgH.textContent = p.telegramHandle;
     }
 
-    if (p.whatsapp) {
-      const waHero = document.getElementById('heroWhatsappLink');
-      const waContact = document.getElementById('contactWhatsappLink');
-      if (waHero) waHero.href = p.whatsapp;
-      if (waContact) waContact.href = p.whatsapp;
+    const maxUrl = p.max || p.whatsapp;
+    if (maxUrl) {
+      const maxHero = document.getElementById('heroMaxLink') || document.getElementById('heroWhatsappLink');
+      const maxContact = document.getElementById('contactMaxLink') || document.getElementById('contactWhatsappLink');
+      if (maxHero) maxHero.href = maxUrl;
+      if (maxContact) maxContact.href = maxUrl;
     }
-    if (p.whatsappPhone) {
-      const waP = document.getElementById('contactWhatsappPhone');
-      if (waP) waP.textContent = p.whatsappPhone;
+    const maxDisplay = p.maxPhone || p.maxHandle || p.whatsappPhone;
+    if (maxDisplay) {
+      const maxP = document.getElementById('contactMaxPhone') || document.getElementById('contactWhatsappPhone');
+      if (maxP) maxP.textContent = maxDisplay;
     }
 
     if (p.phone) {
@@ -300,7 +302,9 @@ document.addEventListener('DOMContentLoaded', () => {
         statusSub: "Кухни, шкафы, гардеробные",
         telegram: "https://t.me/your_telegram",
         telegramHandle: "@your_telegram",
-        whatsapp: "https://wa.me/79990000000",
+        max: "https://max.ru",
+        maxPhone: "+7 (999) 000-00-00",
+        whatsapp: "https://max.ru",
         whatsappPhone: "+7 (999) 000-00-00",
         phone: "+7 (999) 000-00-00",
         email: "designer@example.com"
