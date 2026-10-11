@@ -1,460 +1,373 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Uber</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;subset=cyrillic-ext" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Конструктор Корпусной Мебели | Проектирование в Базис-Мебельщик</title>
+  <meta name="description" content="Инженер-конструктор корпусной мебели. Проектирование в Базис-Мебельщик, подготовка файлов для ЧПУ, карт раскроя, смет и чертежей.">
+  
+  <!-- Google Fonts: Cormorant Garamond & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <ul class="menu">
-                    <li class="menu_item"><a href="#" class="menu_link">Главная</a></li>
-                    <li class="menu_item"><a href="#require" class="menu_link">Со своим автомобилем</a></li>
-                    <li class="menu_item"><a href="#require" class="menu_link">На автомобиле компании</a></li>
-                    <li class="menu_item"><a href="#" class="menu_link">Требования</a></li>
-                    <li class="menu_item"><a href="#" class="menu_link">Контакты</a></li>
-                    <li class="menu_item"><a href="#" class="menu_link">Оставить заявку</a></li>
-                </ul>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-        <div class="subheader">
-            <div class="container">
-                <div class="row">
-                    <div class="col-6 col-md-4 offset-md-1">
-                        <a href="#" class="subheader_logo"><img src="icons/logo.png" alt="logo"></a>
-                        <div class="subheader_official">Официальный партнер Uber в Москве</div>
-                    </div>
 
-                    <div class="xs-hidden col-md-3 offset-md-1 col-xl-2 offset-xl-2">
-                        <div class="subheader_call">Звоните нам ежедневно</div>
-                        <a href="tel:84957970988" class="subheader_phone">8 495 797 09 88</a>
-                    </div>
+  <!-- Фоновые декоративные элементы в стиле арт-минимализма -->
+  <div class="ambient-glow glow-top"></div>
+  <div class="ambient-glow glow-bottom"></div>
 
-                    <div class="col-6 col-md-3">
-                        <a href="tel:84957970988" class="xs-visible subheader_phone">8 495 797 09 88</a>
-                        <button class="subheader_btn">заказать звонок</button>
+  <!-- ШАПКА / НАВИГАЦИЯ -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <span class="logo-mark">БМ</span>
+        <span class="logo-text">Конструктор Мебели</span>
+      </a>
 
-                    </div>
-                </div>
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-links">
+          <li><a href="#about">Обо мне</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#portfolio">Проекты</a></li>
+          <li><a href="#workflow">Процесс</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Кнопка перехода в Админ-панель -->
+        <a href="admin.html" class="btn btn-outline-gold header-cta" title="Панель добавления проектов и редактирования данных">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          <span>Админка</span>
+        </a>
+        <a href="#contacts" class="btn btn-gold header-cta">Связаться</a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Открыть меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ГЛАВНЫЙ БЛОК / ПРОФИЛЬ И ДАННЫЕ ОБО МНЕ -->
+    <section class="hero-section" id="about">
+      <div class="container hero-container">
+        
+        <!-- Левая колонка: Профиль и информация -->
+        <div class="hero-content">
+          <div class="badge-tag" id="profileBadgeTag">
+            <span class="badge-dot"></span>
+            <span id="profileBadgeText">Проектирование мебели • Базис-Мебельщик</span>
+          </div>
+
+          <h1 class="hero-title" id="profileMainTitle">
+            Конструктор мебели <br>
+            <span class="italic-serif text-accent">высокой точности</span>
+          </h1>
+
+          <p class="hero-description" id="profileSubtitleText">
+            Приветствую! Я разрабатываю полные комплекты конструкторской документации 
+            в программе <strong>Базис-Мебельщик</strong>. От эскиза и 3D-модели до управляющих 
+            программ для ЧПУ-станков, карт раскроя и точных производственных чертежей.
+          </p>
+
+          <!-- Ключевые показатели / опыт -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number" id="statExperience">8+</span>
+              <span class="stat-label">Лет опыта в проектировании</span>
             </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number" id="statProjects">450+</span>
+              <span class="stat-label">Успешно сданных проектов</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number" id="statAccuracy">100%</span>
+              <span class="stat-label">Точность присадки и раскроя</span>
+            </div>
+          </div>
+
+          <!-- Программные модули Базис -->
+          <div class="software-tags" id="modulesTagsContainer">
+            <span class="soft-tag">Базис-Мебельщик</span>
+            <span class="soft-tag">Базис-Раскрой</span>
+            <span class="soft-tag">Базис-ЧПУ</span>
+            <span class="soft-tag">Базис-Смета</span>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="#portfolio" class="btn btn-gold">
+              <span>Смотреть проекты</span>
+              <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="https://t.me/your_telegram" target="_blank" rel="noopener" class="btn btn-secondary" id="heroTelegramLink">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.37.74-.56 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+              <span>Telegram</span>
+            </a>
+            <a href="https://wa.me/79990000000" target="_blank" rel="noopener" class="btn btn-secondary" id="heroWhatsappLink">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.93.55 3.73 1.51 5.26L2 22l4.98-1.61a9.88 9.88 0 005.06 1.38h.01c5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.86-9.92-9.86zm5.82 13.99c-.24.68-1.2 1.25-1.69 1.33-.45.07-.98.11-2.9-.69-2.31-.96-3.8-3.32-3.92-3.48-.12-.16-.94-1.25-.94-2.38 0-1.13.59-1.69.8-1.92.21-.23.46-.29.62-.29.15 0 .31 0 .44.01.14.01.33-.05.52.4.19.46.66 1.62.72 1.74.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.25.25-.11.49.14.24.62 1.02 1.33 1.65.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.78.24.12.4.18.46.28.06.1.06.58-.18 1.26z"/></svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
         </div>
 
-    </header>
-
-    <section class="promo">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 offset-md-0 col-lg-10 offset-lg-1">
-                    <h1 class="promo_header">КОМПАНИЯ UBER PARTNERS!</h1>
-                    <h2 class="promo_subheader">ПРИГЛАШАЕМ ВОДИТЕЛЕЙ! НА СВОЕМ АВТО!</h2>
-                    <div class="promo_descr">
-                        Компания UBER динамически развивающаяся. Компания на рынке занимает лидирующее место среди
-                        таксомоторных компаний, Компания абсолютно прозрачная вы можете контролировать все процессы у
-                        себя в личном кабинете. Бонуcная система.Помимо выполненной работы по заказам, компания
-                        начисляет бонусы за
-                        пиковое время.
-                        <br><br>
-                        Мы одни из партнеров и зарекомендовали себя как одна из лучших команд в городе Москве. Водители
-                        у нас
-                        зарабатывают от 80000- 120000 в месяц.
-                    </div>
-                    <button class="promo_btn">ОТПРАВИТЬ ЗАЯВКУ!</button>
-                </div>
+        <!-- Правая колонка: Фотография в фирменной арочной раме -->
+        <div class="hero-visual">
+          <div class="profile-arch-frame">
+            <div class="arch-border-accent"></div>
+            <div class="arch-inner-niche">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" 
+                alt="Конструктор мебели Базис-Мебельщик" 
+                class="profile-img"
+                id="profilePhoto"
+              >
+              <div class="profile-shadow-pedestal"></div>
             </div>
+            
+            <!-- Карточка со статусом -->
+            <div class="profile-floating-badge">
+              <div class="badge-icon">📐</div>
+              <div class="badge-details">
+                <span class="badge-title" id="profileBadgeStatus">Прием заказов открыт</span>
+                <span class="badge-sub" id="profileBadgeSub">Кухни, шкафы, гардеробные</span>
+              </div>
+            </div>
+          </div>
         </div>
+
+      </div>
     </section>
 
-    <section class="reasons">
-        <div class="container">
-            <div class="label">преимущества</div>
-            <h2 class="title">8 причин начать работать с нами</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_1.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Никаких наличных, оплата происходит автоматически</div>
-                            <div class="reasons_text">
-                                Стоимость поездки оплачивается пассажиром с привязанной банковской карты, т.е. нет
-                                никаких рисков связанных с перевозкой наличности как для пассажира, так и для водителя,
-                                Вам не нужно искать мелкие деньги для размена.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_2.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Комиссия 8% + БОНУСЫ</div>
-                            <div class="reasons_text">
-                                У нас минимальная комиссия и мы выплачиваем бонусы за каждую поездку, некоторые наши
-                                конкуренты оставляют бонусы себе. Мы работаем честно и с нами водители зарабатывают
-                                больше!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_3.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Высокий доход с гарантированными выплатами</div>
-                            <div class="reasons_text">
-                                Мы выплачиваем заработную плату на личную банковскую карту водителя! Вам не нужно
-                                оформлять ООО, ИП, платить налоги, подавать декларацию, оплачивать бухгалтерские услуги
-                                и ведение банковского счета.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_4.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Работа в удобное время, никаких графиков</div>
-                            <div class="reasons_text">
-                                Вы просто нажимаете кнопку выйти на линию для начала работы, когда решите закончить,
-                                нажимаете выйти с линии. Вы можете подрабатывать только утром, вечером, в выходные или
-                                праздничные дни!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_5.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Комфортное, прозрачное и простое подключение</div>
-                            <div class="reasons_text">
-                                Мы подключаем дистанционно и бесплатно, Вам нет необходимости приезжать к нам! Вы
-                                присылаете нам копии документов, мы регистрируем Вас и присылаем данные для подключения,
-                                через 1-2 дня Вы можете начинать работать!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_6.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Всегда большое количество заказов</div>
-                            <div class="reasons_text">
-                                Приложение показывает, где на данный момент больше всего заказов и где действуют
-                                повышенные тарифы. У Вас не будет простоя и холостых пробегов. Наши пассажиры всегда
-                                приятные и абсолютно неконфликтные люди, которых приятно возить.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_7.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Круглосуточная поддержка</div>
-                            <div class="reasons_text">
-                                В Uber действует круглосуточная поддержка водителей по электронной почте. Если что-то
-                                непонятно, Вы всегда можете задать вопрос через On-line консультацию.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="reasons_block">
-                        <div class="reasons_round">
-                            <img src="icons/reasons/reason_8.png" alt="reason">
-                        </div>
-                        <div class="reasons_descr">
-                            <div class="reasons_subtitle">Без шашечек и наклеек</div>
-                            <div class="reasons_text">
-                                Вам не нужно менять цвет, устанавливать «шашки» на автомобиль и обклеивать его
-                                наклейками.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- СЕКЦИЯ: ЧТО ВХОДИТ В ПРОЕКТИРОВАНИЕ -->
+    <section class="services-section" id="services">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">КОМПЕТЕНЦИИ И МОДУЛИ</span>
+          <h2 class="section-title">Что вы получаете в проекте</h2>
+          <div class="title-decor-line"></div>
         </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon-box">01</div>
+            <h3 class="service-card-title">3D-моделирование и визуализация</h3>
+            <p class="service-card-text">
+              Точное построение модели в Базис-Мебельщик с учетом зазоров, припусков, особенностей материалов и фурнитуры.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-box">02</div>
+            <h3 class="service-card-title">Файлы для ЧПУ и присадки</h3>
+            <p class="service-card-text">
+              Генерация управляющих программ (Базис-ЧПУ) для присадочных и фрезерных станков. Исключение человеческого фактора.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-box">03</div>
+            <h3 class="service-card-title">Карты раскроя и кромкооблицовки</h3>
+            <p class="service-card-text">
+              Оптимизированный раскрой плитных материалов (ЛДСП, МДФ, ХДФ) с минимальным процентом обрезков и учетом направления текстуры.
+            </p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon-box">04</div>
+            <h3 class="service-card-title">Спецификация, смета и чертежи</h3>
+            <p class="service-card-text">
+              Полные сборочные чертежи с позициями, спецификация крепежа и фурнитуры (Blum, Hettich, Boyard и др.) для закупки.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="mobile">
-        <div class="container">
-            <div class="label">возможности</div>
-            <h2 class="title">мобильное приложение убер</h2>
-            <div class="subtitle">Сделайте заказ, совершите поездку и оплатите ее стоимость, используя свой мобильный
-                телефон</div>
-
-            <div class="row">
-                <div class="col-sm-6 col-md-4">
-                    <div class="mobile_item mobile_item_1">
-                        <div class="mobile_item_subtitle">
-                            оформление заказа одним касанием
-                        </div>
-                        <div class="mobile_item_plus"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="mobile_item mobile_item_2">
-                        <div class="mobile_item_subtitle">
-                            надежная подача
-                        </div>
-                        <div class="mobile_item_plus"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="mobile_item mobile_item_3">
-                        <div class="mobile_item_subtitle">
-                            прозрачные цены
-                        </div>
-                        <div class="mobile_item_plus"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="mobile_item mobile_item_4">
-                        <div class="mobile_item_subtitle">
-                            безналичная оплата
-                        </div>
-                        <div class="mobile_item_plus"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="mobile_item mobile_item_5">
-                        <div class="mobile_item_subtitle">
-                            обратная связь
-                        </div>
-                        <div class="mobile_item_plus"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="mobile_item mobile_item_6">
-                        <div class="mobile_item_subtitle">
-                            разделить стоимость поездки
-                        </div>
-                        <div class="mobile_item_plus"></div>
-                    </div>
-                </div>
-            </div>
+    <!-- СЕКЦИЯ: ПОРТФОЛИО ("ОКОШЕЧКИ" В ФИРМЕННОМ АРОЧНОМ СТИЛЕ) -->
+    <section class="portfolio-section" id="portfolio">
+      <div class="container">
+        
+        <div class="section-header text-center">
+          <span class="section-eyebrow">ПОРТФОЛИО ПРОЕКТОВ</span>
+          <h2 class="section-title">Избранные реализованные проекты</h2>
+          <p class="section-subtitle">
+            Каждое арочное окошко представляет спроектированное изделие. 
+            Нажмите на карточку или ссылку, чтобы открыть проект.
+          </p>
+          <div class="title-decor-line"></div>
         </div>
+
+        <!-- Фильтры по типам проектов -->
+        <div class="portfolio-filters" id="portfolioFilters">
+          <button class="filter-btn active" data-filter="all">Все проекты</button>
+          <button class="filter-btn" data-filter="kitchen">Кухни</button>
+          <button class="filter-btn" data-filter="wardrobe">Шкафы & Гардеробные</button>
+          <button class="filter-btn" data-filter="living">Гостиные & Спальни</button>
+          <button class="filter-btn" data-filter="bathroom">Ванные & Другое</button>
+        </div>
+
+        <!-- СЕТКА "ОКОШЕЧЕК" (ARCHED NICHES) - Заполняется динамически -->
+        <div class="arches-grid" id="archesGrid">
+          <!-- Карточки наполняются скриптом из базы данных /api/data -->
+        </div>
+
+      </div>
     </section>
 
-    <section class="choice">
-        <div class="container">
-            <div class="black"></div>
-            <div class="label label_white">возможности</div>
-            <h2 class="title title_white title_white_not">Выбор - отличная штука!</h2>
-            <div class="subtitle subtitle_white subtitle_white_not">Закажите автомобиль, который подходит вам по стилю и
-                бюджету</div>
-
-            <img src="img/car.png" alt="uber car" class="choice_img">
-            <div class="choice_descr">
-                Машины на каждый день.<br>
-                Лучше, быстрее и дешевле, чем такси
-            </div>
+    <!-- СЕКЦИЯ: ЭТАПЫ РАБОТЫ -->
+    <section class="workflow-section" id="workflow">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">ПОРЯДОК ВЗАИМОДЕЙСТВИЯ</span>
+          <h2 class="section-title">Как строится процесс работы</h2>
+          <div class="title-decor-line"></div>
         </div>
+
+        <div class="workflow-steps">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <h4 class="step-title">ТЗ и замеры</h4>
+            <p class="step-text">Получаю эскиз, дизайн-проект, фото помещения или точные замеры с указанием коммуникаций.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <h4 class="step-title">3D-модель в Базисе</h4>
+            <p class="step-text">Создаю полноценную трехмерную сборку, согласовываем узлы, фурнитуру и внутреннее наполнение.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <h4 class="step-title">Выгрузка документации</h4>
+            <p class="step-text">Формирую чертежи, схемы присадки, файлы для ЧПУ-станков, раскрой плит и спецификацию крепежа.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <h4 class="step-title">Передача на производство</h4>
+            <p class="step-text">Вы получаете готовый архив файлов, полностью готовый к распилу, присадке и сборке без задержек.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="require" id="require">
-        <div class="container">
-            <div class="label">возможности</div>
-            <h2 class="title">условия и требования</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="require_block">
-                        <div class="require_title">
-                            УСЛОВИЯ: со своим авто:
-                        </div>
-                        <ul class="require_list">
-                            <li>Подключаем к системе UBER под 10%.</li>
-                            <li>
-                                Ни каких взносов 0%!
-                            </li>
-                            <li>
-                                Можем подключать удаленно без приезда в офис
-                            </li>
-                            <li>
-                                ИП не требуется
-                            </li>
-                            <li>
-                                Заказы распределяются без учета рейтинга ближай-<br>шим водителям
-                            </li>
-                            <li>
-                                Работа только по безналичному расчету
-                            </li>
-                            <li>
-                                Деньги перечисляем на карту водителю или наличны-<br>ми в офисе
-                            </li>
-                        </ul>
-                        <div class="require_descr">
-                            В день заработок составляет 7000-12000р + бонус 3000т<br> рублей
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="require_block">
-                        <div class="require_title">
-                            УСЛОВИЯ: на авто компании:
-                        </div>
-                        <ul class="require_list">
-                            <li>
-                                Предоставляем авто без залога
-                            </li>
-                            <li>
-                                Без ежедневных выплат по аренде
-                            </li>
-                            <li>
-                                Среда пятница и суббота работа на компанию остальные дни вы работаете на себя
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="require_block require_block_nmb warning">
-                        <div class="require_title">
-                            ТРЕБОВАНИЕ:
-                        </div>
-                        <ul class="require_list">
-                            <li>
-                                Наличие автомобиля без рекламы
-                            </li>
-                            <li>
-                                Автомобиль не должен быть желтый и не с желтыми номерами
-                            </li>
-                            <li>
-                                Машина не старше 3 лет
-                            </li>
-                            <li>
-                                Стаж вождения не менее 3 лет
-                            </li>
-                            <li>
-                                Девайс на системе андроид 4.0и выше(самсунг)
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="require_block require_block_nmb warning">
-                        <div class="require_title">
-                            ДОКУМЕНТЫ:
-                        </div>
-                        <ul class="require_list">
-                            <li>
-                                Права 2 стороны
-                            </li>
-                            <li>
-                                Паспорт лицевая сторона
-                            </li>
-                            <li>
-                                СтС
-                            </li>
-                            <li>
-                                Лицензия( если есть)
-                            </li>
-                            <li>
-                                Номер телефона
-                            </li>
-                            <li>
-                                Номер карты для перечисления денег(указать в письме)!
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <!-- СЕКЦИЯ: КОНТАКТЫ -->
+    <section class="contacts-section" id="contacts">
+      <div class="container">
+        <div class="contact-card-wrapper">
+          <div class="contact-header text-center">
+            <span class="section-eyebrow">ОБСУДИТЬ ВАШ ПРОЕКТ</span>
+            <h2 class="section-title">Готовы спроектировать идеальную мебель?</h2>
+            <p class="contact-sub">
+              Отправьте эскиз или техническое задание в удобный мессенджер — рассчитаю стоимость и сроки подготовки документации.
+            </p>
+          </div>
+
+          <div class="contacts-grid">
+            
+            <!-- Telegram -->
+            <a href="https://t.me/your_telegram" target="_blank" rel="noopener" class="contact-item" id="contactTelegramLink">
+              <div class="contact-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.37.74-.56 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+              </div>
+              <div class="contact-info">
+                <span class="contact-label">Telegram</span>
+                <span class="contact-value" id="contactTelegramHandle">@your_telegram</span>
+              </div>
+              <span class="contact-action">Написать →</span>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/79990000000" target="_blank" rel="noopener" class="contact-item" id="contactWhatsappLink">
+              <div class="contact-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.93.55 3.73 1.51 5.26L2 22l4.98-1.61a9.88 9.88 0 005.06 1.38h.01c5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.86-9.92-9.86zm5.82 13.99c-.24.68-1.2 1.25-1.69 1.33-.45.07-.98.11-2.9-.69-2.31-.96-3.8-3.32-3.92-3.48-.12-.16-.94-1.25-.94-2.38 0-1.13.59-1.69.8-1.92.21-.23.46-.29.62-.29.15 0 .31 0 .44.01.14.01.33-.05.52.4.19.46.66 1.62.72 1.74.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.25.25-.11.49.14.24.62 1.02 1.33 1.65.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.78.24.12.4.18.46.28.06.1.06.58-.18 1.26z"/></svg>
+              </div>
+              <div class="contact-info">
+                <span class="contact-label">WhatsApp</span>
+                <span class="contact-value" id="contactWhatsappPhone">+7 (999) 000-00-00</span>
+              </div>
+              <span class="contact-action">Написать →</span>
+            </a>
+
+            <!-- Телефон -->
+            <a href="tel:+79990000000" class="contact-item" id="contactPhoneLink">
+              <div class="contact-icon-box">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div class="contact-info">
+                <span class="contact-label">Телефон</span>
+                <span class="contact-value" id="contactPhoneNumber">+7 (999) 000-00-00</span>
+              </div>
+              <span class="contact-action">Позвонить →</span>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:designer@example.com" class="contact-item" id="contactEmailLink">
+              <div class="contact-icon-box">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="contact-info">
+                <span class="contact-label">Электронная почта</span>
+                <span class="contact-value" id="contactEmailAddress">designer@example.com</span>
+              </div>
+              <span class="contact-action">Отправить →</span>
+            </a>
+
+          </div>
         </div>
+      </div>
     </section>
+  </main>
 
-    <section class="world">
-        <div class="container">
-            <div class="label label_white label_min">города</div>
-            <h2 class="title title_white">По всему миру</h2>
-            <div class="subtitle subtitle_white">Мы в вашем городе и по всему миру</div>
+  <!-- ФУТЕР -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="footer-logo">БМ Конструктор</span>
+        <p class="footer-copy">© 2026 Проектирование корпусной мебели в Базис-Мебельщик. Все права защищены.</p>
+      </div>
+      <div class="footer-right" style="display: flex; gap: 20px; align-items: center;">
+        <a href="admin.html" style="color: var(--accent-gold); font-size: 0.88rem; text-decoration: none;">⚙️ Панель управления</a>
+        <a href="#about" class="back-to-top">Наверх ↑</a>
+      </div>
+    </div>
+  </footer>
 
-            <a href="#" class="world_link">посмотреть все города</a>
+  <!-- МОДАЛЬНОЕ ОКНО ДЕТАЛЬНОГО ПРОСМОТРА ПРОЕКТА -->
+  <div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-window">
+      <button class="modal-close" id="modalClose" aria-label="Закрыть окно">&times;</button>
+      
+      <div class="modal-arch-container">
+        <img src="" alt="" class="modal-arch-img" id="modalImg">
+      </div>
+
+      <div class="modal-content-panel">
+        <span class="modal-tag" id="modalTag">Кухонный гарнитур</span>
+        <h3 class="modal-title" id="modalTitle">Название проекта</h3>
+        <p class="modal-desc" id="modalDesc">Описание проекта и спецификации...</p>
+        
+        <div class="modal-specs" id="modalSpecs"></div>
+
+        <div class="modal-actions">
+          <a href="#" target="_blank" rel="noopener" class="btn btn-gold modal-link-btn" id="modalActionLink">
+            <span>Открыть полный проект</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
 
-    <footer>
-        <div class="footer_divider"></div>
-        <div class="footer_wrapper">
-            <!-- Если не оборачивать каждый блок в обертку - получится криво -->
-            <div>
-                <div class="footer_social">
-                    <a href="#" class="footer_social_item">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="footer_social_item">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="footer_social_item">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="#" class="footer_social_item">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <div class="footer_links">
-                    <div class="footer_links_main">
-                        <a href="#">на главную</a>
-                        <a href="#">города</a>
-                        <a href="#">для водителей</a>
-                    </div>
-                    <div class="footer_links_sub">
-                        <a href="#">центр поддержки</a>
-                        <a href="#">вакансии</a>
-                        <a href="#">разработчики</a>
-                        <a href="#">блог</a>
-                        <a href="#">о нас</a>
-                    </div>
-                    <a href="#" class="footer_links_lang">Русский</a>
-                </div>
-            </div>
-            <div>
-                <div class="footer_mobile">
-                    <a href="#">
-                        <img src="img/app_store.png" alt="App Store">
-                    </a>
-                    <a href="#">
-                        <img src="img/google_play.png" alt="Google play">
-                    </a>
-                    <a href="#">
-                        <img src="img/windows_store.png" alt="Windows store">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script src="js/script.js"></script>
+  <script src="script.js"></script>
 </body>
-
 </html>

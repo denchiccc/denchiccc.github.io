@@ -1,0 +1,124 @@
+{
+  "profile": {
+    "name": "Конструктор мебели",
+    "badge": "Проектирование мебели • Базис-Мебельщик",
+    "title": "Конструктор мебели высокой точности",
+    "subtitle": "Приветствую! Я разрабатываю полные комплекты конструкторской документации в программе Базис-Мебельщик. От эскиза и 3D-модели до управляющих программ для ЧПУ-станков, карт раскроя и точных производственных чертежей.",
+    "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    "status": "Прием заказов открыт",
+    "statusSub": "Кухни, шкафы, гардеробные",
+    "experience": "8+",
+    "projectsCount": "450+",
+    "accuracy": "100%",
+    "telegram": "https://t.me/your_telegram",
+    "telegramHandle": "@your_telegram",
+    "whatsapp": "https://wa.me/79990000000",
+    "whatsappPhone": "+7 (999) 000-00-00",
+    "phone": "+7 (999) 000-00-00",
+    "email": "designer@example.com"
+  },
+  "modules": [
+    "Базис-Мебельщик",
+    "Базис-Раскрой",
+    "Базис-ЧПУ",
+    "Базис-Смета"
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "title": "Кухня с профилем Gola и островом",
+      "category": "kitchen",
+      "categoryName": "Кухонный гарнитур",
+      "format": "Базис 2024",
+      "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
+      "description": "Фасады Fenix NTM, фурнитура Blum Legrabox, скрытая подсветка в паз, присадка под ЧПУ.",
+      "link": "https://example.com/project-1",
+      "specs": [
+        { "label": "Модуль Базис", "val": "Базис-Мебельщик 2024" },
+        { "label": "ЧПУ программы", "val": "Выгружены под Biesse / Homag" },
+        { "label": "Фурнитура", "val": "Blum Legrabox, Aventos HK-XS" },
+        { "label": "Материалы", "val": "Fenix NTM, ЛДСП Egger 18 мм" }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Встроенная мастер-гардеробная",
+      "category": "wardrobe",
+      "categoryName": "Гардеробная",
+      "format": "Базис-ЧПУ",
+      "image": "https://images.unsplash.com/photo-1558997519-83ea9252defc?auto=format&fit=crop&w=800&q=80",
+      "description": "Алюминиевый профиль, тонированное стекло Stopsol, пантографы, расчет нагрузок на полки.",
+      "link": "https://example.com/project-2",
+      "specs": [
+        { "label": "Модуль Базис", "val": "Базис-Мебельщик + Раскрой" },
+        { "label": "Особенности", "val": "Врезной LED-профиль со скосом 45°" },
+        { "label": "Фурнитура", "val": "Hettich Sensys, пантографы Servetto" },
+        { "label": "Корпус", "val": "Egger Дуб Галифакс табак" }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Подвесная ТВ-консоль и рейки",
+      "category": "living",
+      "categoryName": "Гостиная",
+      "format": "Базис-Смета",
+      "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+      "description": "Скрытый монтаж Camar, шпонированные панели МДФ, интеграция кабель-каналов и техники.",
+      "link": "https://example.com/project-3",
+      "specs": [
+        { "label": "Модуль Базис", "val": "Базис-Смета + Чертежи" },
+        { "label": "Крепеж", "val": "Навесы Camar 807, эксцентрики Rastex" },
+        { "label": "Фасады", "val": "Шпон американского ореха под матовым лаком" },
+        { "label": "Документы", "val": "Сборочные схемы с позициями деталей" }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Кухня до потолка с фрезеровкой",
+      "category": "kitchen",
+      "categoryName": "Кухонный гарнитур",
+      "format": "Базис-Раскрой",
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+      "description": "Фрезерованные фасады эмаль, подъемники Aventos HF, карты раскроя под 2800х2070 мм.",
+      "link": "https://example.com/project-4",
+      "specs": [
+        { "label": "Модуль Базис", "val": "Базис-ЧПУ + Раскрой" },
+        { "label": "Подъемники", "val": "Blum Aventos HF на верхних ярусах" },
+        { "label": "Фасады", "val": "МДФ 19 мм эмаль с интегрированной ручкой" },
+        { "label": "Столешница", "val": "Искусственный акриловый камень" }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Шкаф в прихожую с сиденьем",
+      "category": "wardrobe",
+      "categoryName": "Прихожая / Шкаф",
+      "format": "Спецификация",
+      "image": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80",
+      "description": "Интегрированная мягкая панель, скрытые петли Clip top BLUMOTION, ящики полного выдвижения.",
+      "link": "https://example.com/project-5",
+      "specs": [
+        { "label": "Модуль Базис", "val": "Базис-Мебельщик" },
+        { "label": "Присадка", "val": "Под стяжки Minifix и шканты" },
+        { "label": "Направляющие", "val": "Boyard B-Slide с доводчиком" },
+        { "label": "Конструкция", "val": "Сборка в ограниченном пространстве" }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Тумба под накладную раковину",
+      "category": "bathroom",
+      "categoryName": "Ванная комната",
+      "format": "Влагостойкий МДФ",
+      "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      "description": "Вырезы под сифон с точностью до миллиметра, усиленные подвесы, влагостойкая кромка PUR.",
+      "link": "https://example.com/project-6",
+      "specs": [
+        { "label": "Модуль Базис", "val": "Базис-ЧПУ + Спецификация" },
+        { "label": "Кромкооблицовка", "val": "PUR-клей влагостойкий 1 мм" },
+        { "label": "Материал", "val": "Влагостойкий МДФ 16 мм в эмали" },
+        { "label": "Ящики", "val": "U-образный вырез под сифон" }
+      ]
+    }
+  ]
+}

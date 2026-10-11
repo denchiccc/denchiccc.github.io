@@ -1,0 +1,1323 @@
+/* ==========================================================================
+   СТИЛИ САЙТА-ВИЗИТКИ КОНСТРУКТОРА МЕБЕЛИ (БАЗИС-МЕБЕЛЬЩИК)
+   Фирменный изумрудный арочный стиль (Forest Green & Warm Gold)
+   ========================================================================== */
+
+:root {
+  /* Цветовая палитра из референса */
+  --bg-primary: #15271d;         /* Глубокий лесной/изумрудный фон */
+  --bg-secondary: #1a3326;       /* Чуть светлее для подложек */
+  --bg-card-niche: #203c2d;      /* Внутренняя ниша арочного окна */
+  --bg-pedestal: #182e22;        /* Теневой пьедестал в нише */
+  
+  --accent-gold: #d4af37;        /* Благородное золото */
+  --accent-gold-light: #f3e5c8;  /* Светлое шампанское */
+  --accent-gold-muted: rgba(212, 175, 55, 0.25);
+  
+  --text-primary: #f5eedf;        /* Теплый кремовый/слоновая кость */
+  --text-secondary: #afc6b6;      /* Мягкий шалфейный */
+  --text-muted: #7e9886;          /* Приглушенный зеленый */
+  
+  --border-subtle: rgba(212, 175, 55, 0.18);
+  --border-glow: rgba(212, 175, 55, 0.45);
+  --glass-bg: rgba(26, 51, 38, 0.75);
+
+  /* Шрифты */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Скругления и тени */
+  --arch-radius: 140px 140px 20px 20px;
+  --arch-inner-radius: 132px 132px 16px 16px;
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+
+  --shadow-deep: 0 20px 45px rgba(10, 20, 14, 0.6);
+  --shadow-arch: 0 16px 36px rgba(7, 18, 12, 0.7);
+  --shadow-hover: 0 24px 50px rgba(7, 18, 12, 0.85);
+
+  --transition-smooth: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Сброс и базовые настройки */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Декоративное фоновое свечение */
+.ambient-glow {
+  position: fixed;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(120px);
+  opacity: 0.18;
+}
+
+.glow-top {
+  top: -20vw;
+  right: -15vw;
+  background: radial-gradient(circle, #3d7253 0%, rgba(61, 114, 83, 0) 70%);
+}
+
+.glow-bottom {
+  bottom: -20vw;
+  left: -15vw;
+  background: radial-gradient(circle, #29563c 0%, rgba(41, 86, 60, 0) 70%);
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ТИПОГРАФИКА */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.italic-serif {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.text-accent {
+  color: var(--accent-gold-light);
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.title-decor-line {
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+  margin: 18px auto 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* КНОПКИ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 28px;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: 1px solid transparent;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #dfc17b 0%, #b89146 100%);
+  color: #122118;
+  font-weight: 600;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.25);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+  background: linear-gradient(135deg, #ecce88 0%, #c49d52 100%);
+}
+
+.btn-outline-gold {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-light);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.btn-outline-gold:hover {
+  background: var(--accent-gold);
+  color: #122118;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   ШАПКА (HEADER)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(21, 39, 29, 0.85);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px 0;
+  transition: var(--transition-smooth);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border: 1px solid var(--accent-gold);
+  color: var(--accent-gold-light);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease;
+  position: relative;
+  padding: 6px 0;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent-gold-light);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-cta {
+  padding: 8px 20px;
+  font-size: 0.88rem;
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   HERO / СЕКЦИЯ ПРОФИЛЯ
+   ========================================================================== */
+.hero-section {
+  padding: 80px 0 100px;
+  position: relative;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  align-items: center;
+  gap: 60px;
+}
+
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid var(--border-subtle);
+  color: var(--accent-gold-light);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+}
+
+.hero-title {
+  font-size: clamp(2.6rem, 4.8vw, 4.2rem);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-description {
+  font-size: 1.12rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 36px;
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: rgba(26, 51, 38, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  margin-bottom: 30px;
+  width: fit-content;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-gold-light);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 38px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.software-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.soft-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+/* АРОЧНАЯ РАМА ФОТОГРАФИИ ПРОФИЛЯ */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.profile-arch-frame {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 540px;
+  border-radius: var(--arch-radius);
+  padding: 8px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.35) 0%, rgba(212, 175, 55, 0.05) 100%);
+  box-shadow: var(--shadow-deep);
+}
+
+.arch-inner-niche {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--arch-inner-radius);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #2a4c3a 0%, #172c21 100%);
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: contrast(1.05) brightness(0.95);
+  transition: transform 0.6s ease;
+}
+
+.profile-arch-frame:hover .profile-img {
+  transform: scale(1.03);
+}
+
+.profile-shadow-pedestal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(0deg, rgba(16, 32, 23, 0.95) 0%, rgba(16, 32, 23, 0) 100%);
+  pointer-events: none;
+}
+
+.profile-floating-badge {
+  position: absolute;
+  bottom: 24px;
+  left: -20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: rgba(22, 42, 32, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.badge-icon {
+  font-size: 1.5rem;
+}
+
+.badge-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-gold-light);
+}
+
+.badge-sub {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   СЕКЦИЯ КОМПЕТЕНЦИЙ (SERVICES)
+   ========================================================================== */
+.services-section {
+  padding: 90px 0;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(18, 34, 25, 0.5);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.service-card {
+  padding: 32px 24px;
+  border-radius: 20px;
+  background: rgba(26, 51, 38, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.service-card:hover {
+  background: rgba(30, 60, 44, 0.7);
+  border-color: var(--border-glow);
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.service-icon-box {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 16px;
+}
+
+.service-card-title {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.service-card-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   СЕКЦИЯ ПОРТФОЛИО: ФИРМЕННЫЕ АРОЧНЫЕ "ОКОШЕЧКИ"
+   ========================================================================== */
+.portfolio-section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.portfolio-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 40px 0 55px;
+}
+
+.filter-btn {
+  padding: 9px 22px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.filter-btn.active {
+  background: var(--accent-gold);
+  color: #122118;
+  border-color: var(--accent-gold);
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+}
+
+/* СЕТКА АРОЧНЫХ ОКОШЕК */
+.arches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+}
+
+/* КАРТОЧКА С АРОЧНЫМ ОКНОМ */
+.arch-card {
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-smooth);
+  border-radius: var(--radius-card);
+}
+
+/* Сама форма арочного окна (Arch Window) */
+.arch-window {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5.2;
+  border-radius: var(--arch-radius);
+  background: radial-gradient(circle at 50% 25%, #274936 0%, #193123 90%);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow: var(--shadow-arch);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition-smooth);
+}
+
+.arch-card:hover .arch-window {
+  transform: translateY(-6px);
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-hover), 0 0 25px rgba(212, 175, 55, 0.18);
+}
+
+/* Внутреннее свечение сверху арки */
+.arch-inner-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.12) 0%, transparent 75%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Контейнер изображения внутри арки */
+.arch-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 18px 30px;
+  z-index: 1;
+}
+
+.arch-project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 124px 124px 10px 10px;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+  filter: contrast(1.02);
+}
+
+.arch-card:hover .arch-project-img {
+  transform: scale(1.05);
+}
+
+/* Архитектурный пьедестал в основании арки */
+.arch-pedestal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  background: linear-gradient(180deg, rgba(20, 38, 28, 0) 0%, rgba(15, 29, 21, 0.85) 60%, #12241a 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  z-index: 2;
+}
+
+/* ИНФОРМАЦИЯ ПОД АРОЧНЫМ ОКНОМ */
+.arch-info {
+  padding: 20px 8px 10px;
+}
+
+.arch-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.arch-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+}
+
+.arch-format {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.arch-title {
+  font-size: 1.4rem;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  transition: color 0.25s ease;
+}
+
+.arch-card:hover .arch-title {
+  color: var(--accent-gold-light);
+}
+
+.arch-description {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+/* Кнопки действий карточки */
+.arch-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arch-link-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: var(--accent-gold-light);
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+.arch-link-btn:hover {
+  background: var(--accent-gold);
+  color: #122118;
+  border-color: var(--accent-gold);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+}
+
+.arch-quickview-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.arch-quickview-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   СЕКЦИЯ ЭТАПОВ РАБОТЫ (WORKFLOW)
+   ========================================================================== */
+.workflow-section {
+  padding: 90px 0;
+  background: rgba(21, 40, 30, 0.4);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 50px;
+}
+
+.step-card {
+  padding: 28px 20px;
+  border-radius: 18px;
+  background: rgba(26, 51, 38, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.step-num {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 12px;
+}
+
+.step-title {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.step-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   СЕКЦИЯ КОНТАКТОВ
+   ========================================================================== */
+.contacts-section {
+  padding: 100px 0;
+}
+
+.contact-card-wrapper {
+  background: radial-gradient(ellipse at 50% 0%, #244433 0%, #162c20 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: 32px;
+  padding: 60px 48px;
+  box-shadow: var(--shadow-deep);
+}
+
+.contact-header {
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+
+.contact-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-top: 12px;
+}
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  border-radius: 18px;
+  background: rgba(21, 39, 29, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: var(--transition-smooth);
+}
+
+.contact-item:hover {
+  background: rgba(33, 62, 46, 0.8);
+  border-color: var(--border-glow);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.contact-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--accent-gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.contact-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.contact-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.contact-action {
+  font-size: 0.85rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   ФУТЕР
+   ========================================================================== */
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 36px 0;
+  background: #112017;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.footer-copy {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.back-to-top {
+  color: var(--accent-gold-light);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: opacity 0.2s ease;
+}
+
+.back-to-top:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   МОДАЛЬНОЕ ОКНО ПРОЕКТА
+   ========================================================================== */
+.project-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+
+.project-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 20, 14, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.modal-window {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 840px;
+  background: #172d21;
+  border: 1px solid var(--border-glow);
+  border-radius: 28px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.project-modal.active .modal-window {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: var(--transition-smooth);
+}
+
+.modal-close:hover {
+  background: var(--accent-gold);
+  color: #122118;
+}
+
+.modal-arch-container {
+  background: radial-gradient(circle at 50% 30%, #274836 0%, #15291d 100%);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-arch-img {
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  border-radius: var(--arch-radius);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: var(--shadow-deep);
+}
+
+.modal-content-panel {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-tag {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.modal-title {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.modal-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.modal-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-spec-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.modal-spec-label {
+  color: var(--text-muted);
+}
+
+.modal-spec-val {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.modal-actions {
+  display: flex;
+}
+
+.modal-link-btn {
+  width: 100%;
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ ПОД ВСЕ УСТРОЙСТВА (RESPONSIVE DESIGN)
+   ========================================================================== */
+
+/* Ноутбуки и планшеты (до 1080px) */
+@media (max-width: 1080px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .software-tags {
+    justify-content: center;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .profile-floating-badge {
+    left: 20px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .arches-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .workflow-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contacts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Планшеты и крупные мобильные (до 768px) */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 12px 0;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: #13241b;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 24px;
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .main-nav.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    display: block;
+    padding: 8px 0;
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  .hero-section {
+    padding: 40px 0 60px;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .stat-divider {
+    width: 60px;
+    height: 1px;
+  }
+
+  .profile-arch-frame {
+    max-width: 320px;
+    height: 420px;
+  }
+
+  .arches-grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .arch-window {
+    aspect-ratio: 4 / 5.2;
+  }
+
+  .contact-card-wrapper {
+    padding: 36px 20px;
+    border-radius: 24px;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-window {
+    grid-template-columns: 1fr;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-arch-container {
+    padding: 20px 20px 0;
+  }
+
+  .modal-arch-img {
+    max-height: 280px;
+  }
+
+  .modal-content-panel {
+    padding: 24px 20px;
+  }
+}
+
+/* Компактные телефоны (до 480px) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .workflow-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}

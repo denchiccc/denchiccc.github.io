@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель управления | Сайт-визитка Конструктора Мебели</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #122219;
+      --bg-surface: #182e22;
+      --bg-card: #1e392b;
+      --bg-input: #14281e;
+      --accent-gold: #d4af37;
+      --accent-gold-light: #f3e5c8;
+      --text-main: #f5eedf;
+      --text-muted: #8ba592;
+      --border: rgba(212, 175, 55, 0.2);
+      --border-focus: #d4af37;
+      --danger: #e05d5d;
+      --success: #4ec970;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+      --radius: 12px;
+      --arch-radius: 90px 90px 14px 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    /* ШАПКА АДМИНКИ */
+    .admin-header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 24px;
+    }
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .admin-badge {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+    .admin-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--text-main);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* КНОПКИ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      font-family: var(--font-sans);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #dfc17b 0%, #b89146 100%);
+      color: #122118;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #ecd18e 0%, #c69f54 100%);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      border-color: var(--border);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--accent-gold);
+    }
+    .btn-danger {
+      background: rgba(224, 93, 93, 0.15);
+      border-color: rgba(224, 93, 93, 0.4);
+      color: #ff9b9b;
+    }
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    /* ОСНОВНОЙ КОНТЕЙНЕР */
+    .container {
+      max-width: 1280px;
+      margin: 32px auto 0;
+      padding: 0 24px;
+    }
+
+    /* ВКЛАДКИ */
+    .admin-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .tab-btn {
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+    .tab-btn.active {
+      color: var(--accent-gold);
+      border-bottom-color: var(--accent-gold);
+    }
+
+    /* СЕКЦИИ И ФОРМЫ */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--accent-gold-light);
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    label {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    input[type="text"],
+    input[type="url"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      background: var(--bg-input);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* ЗАГРУЗКА ИЗОБРАЖЕНИЯ */
+    .image-uploader-box {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 18px;
+      background: var(--bg-input);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+    }
+    .preview-arch-mini {
+      width: 100px;
+      height: 125px;
+      border-radius: 48px 48px 10px 10px;
+      overflow: hidden;
+      border: 1px solid var(--accent-gold);
+      background: #102117;
+      flex-shrink: 0;
+    }
+    .preview-arch-mini img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .uploader-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .file-input-wrapper input[type="file"] {
+      display: none;
+    }
+
+    /* СПИСОК ПРОЕКТОВ (КАРТОЧКИ-ОКОШЕЧКИ) */
+    .projects-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .projects-admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .admin-project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .admin-project-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+    .project-card-top {
+      display: flex;
+      gap: 16px;
+    }
+    .project-arch-thumb {
+      width: 85px;
+      height: 110px;
+      border-radius: var(--arch-radius);
+      overflow: hidden;
+      border: 1px solid var(--accent-gold);
+      background: #112319;
+      flex-shrink: 0;
+    }
+    .project-arch-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .project-info-mini {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .project-tag-pill {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+    .project-name-mini {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+    .project-link-preview {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      word-break: break-all;
+    }
+    .project-card-actions {
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+    .project-card-actions .btn {
+      flex: 1;
+      padding: 7px 12px;
+      font-size: 0.82rem;
+    }
+
+    /* МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ / РЕДАКТИРОВАНИЯ ПРОЕКТА */
+    .admin-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(8, 16, 12, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .admin-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .admin-modal-body {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-focus);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 720px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* УВЕДОМЛЕНИЕ (TOAST) */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 14px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-gold);
+      color: var(--text-main);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 9999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--danger); }
+
+    @media (max-width: 768px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .header-content { flex-direction: column; align-items: flex-start; }
+      .header-actions { width: 100%; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ШАПКА АДМИН-ПАНЕЛИ -->
+  <header class="admin-header">
+    <div class="header-content">
+      <div class="admin-brand">
+        <span class="admin-badge">БМ</span>
+        <h1 class="admin-title">Панель управления портфолио</h1>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" target="_blank" class="btn btn-outline" title="Открыть портфолио в новой вкладке">
+          <span>👁 Открыть сайт</span>
+        </a>
+        <button id="saveAllBtn" class="btn btn-gold">
+          <span>💾 Сохранить всё</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- КОНТЕЙНЕР АДМИНКИ -->
+  <main class="container">
+    
+    <!-- Навигация по вкладкам -->
+    <div class="admin-tabs">
+      <button class="tab-btn active" data-tab="tab-profile">👤 Профиль и обо мне</button>
+      <button class="tab-btn" data-tab="tab-projects">🗂 Проекты ("Окошечки")</button>
+      <button class="tab-btn" data-tab="tab-backup">⚙️ Резервная копия</button>
+    </div>
+
+    <!-- 1. ВКЛАДКА: ПРОФИЛЬ -->
+    <div id="tab-profile" class="tab-content active">
+      <div class="card">
+        <h2 class="card-title">Фотография и статус</h2>
+        <p class="card-subtitle">Ваше фото отображается в арочной раме в шапке сайта</p>
+
+        <div class="image-uploader-box">
+          <div class="preview-arch-mini">
+            <img id="profilePhotoPreview" src="" alt="Фото профиля">
+          </div>
+          <div class="uploader-controls">
+            <div class="file-input-wrapper">
+              <label for="profilePhotoFile" class="btn btn-outline" style="cursor: pointer; display: inline-flex;">
+                📁 Загрузить фото с компьютера
+              </label>
+              <input type="file" id="profilePhotoFile" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label>Или вставьте прямую ссылку на фото:</label>
+              <input type="url" id="profilePhotoUrl" placeholder="https://...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Данные обо мне и опыт</h2>
+        <div class="form-grid">
+          
+          <div class="form-group">
+            <label>Имя / Заголовок профиля</label>
+            <input type="text" id="profName" placeholder="Конструктор мебели">
+          </div>
+
+          <div class="form-group">
+            <label>Специализация (бейдж)</label>
+            <input type="text" id="profBadge" placeholder="Проектирование мебели • Базис-Мебельщик">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Главный заголовок</label>
+            <input type="text" id="profTitle" placeholder="Конструктор мебели высокой точности">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Текст «Обо мне» (описание)</label>
+            <textarea id="profSubtitle" placeholder="Расскажите о своем опыте..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Лет опыта</label>
+            <input type="text" id="profExperience" placeholder="8+">
+          </div>
+
+          <div class="form-group">
+            <label>Сдано проектов</label>
+            <input type="text" id="profProjectsCount" placeholder="450+">
+          </div>
+
+          <div class="form-group">
+            <label>Статус плашки на фото</label>
+            <input type="text" id="profStatus" placeholder="Прием заказов открыт">
+          </div>
+
+          <div class="form-group">
+            <label>Подзаголовок статуса</label>
+            <input type="text" id="profStatusSub" placeholder="Кухни, шкафы, гардеробные">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Контакты и мессенджеры</h2>
+        <div class="form-grid">
+          
+          <div class="form-group">
+            <label>Telegram (ссылка)</label>
+            <input type="url" id="contactTelegram" placeholder="https://t.me/your_telegram">
+          </div>
+
+          <div class="form-group">
+            <label>Telegram (отображаемый логин)</label>
+            <input type="text" id="contactTelegramHandle" placeholder="@your_telegram">
+          </div>
+
+          <div class="form-group">
+            <label>WhatsApp (ссылка)</label>
+            <input type="url" id="contactWhatsapp" placeholder="https://wa.me/79990000000">
+          </div>
+
+          <div class="form-group">
+            <label>WhatsApp (отображаемый номер)</label>
+            <input type="text" id="contactWhatsappPhone" placeholder="+7 (999) 000-00-00">
+          </div>
+
+          <div class="form-group">
+            <label>Номер телефона для звонков</label>
+            <input type="text" id="contactPhone" placeholder="+7 (999) 000-00-00">
+          </div>
+
+          <div class="form-group">
+            <label>Электронная почта (Email)</label>
+            <input type="email" id="contactEmail" placeholder="designer@example.com">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. ВКЛАДКА: ПРОЕКТЫ (ОКОШЕЧКИ) -->
+    <div id="tab-projects" class="tab-content">
+      <div class="projects-header">
+        <div>
+          <h2 class="card-title">Список арочных проектов</h2>
+          <p class="card-subtitle">Каждый проект отображается в фирменном «окошечке» со ссылкой</p>
+        </div>
+        <button id="addNewProjectBtn" class="btn btn-gold">
+          <span>➕ Добавить проект</span>
+        </button>
+      </div>
+
+      <div class="projects-admin-grid" id="adminProjectsGrid">
+        <!-- Генерируется через JS -->
+      </div>
+    </div>
+
+    <!-- 3. ВКЛАДКА: РЕЗЕРВНАЯ КОПИЯ -->
+    <div id="tab-backup" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">Экспорт и Импорт данных</h2>
+        <p class="card-subtitle">Вы можете скачать резервную копию всех проектов или загрузить готовую</p>
+
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <button id="exportJsonBtn" class="btn btn-outline">
+            <span>📥 Скачать резервную копию (JSON)</span>
+          </button>
+          
+          <label for="importJsonFile" class="btn btn-outline" style="cursor: pointer;">
+            <span>📤 Загрузить из файла (JSON)</span>
+          </label>
+          <input type="file" id="importJsonFile" accept=".json" style="display: none;">
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ / РЕДАКТИРОВАНИЯ ПРОЕКТА -->
+  <div class="admin-modal" id="projectEditModal">
+    <div class="admin-modal-body">
+      <button class="modal-close-btn" id="closeProjectModal">&times;</button>
+      <h2 class="card-title" id="projectModalTitle">Редактирование проекта</h2>
+      <p class="card-subtitle">Заполните фото, ссылку и параметры изделия</p>
+
+      <form id="projectForm">
+        <input type="hidden" id="editProjectId">
+
+        <div class="form-grid">
+          
+          <!-- Загрузка изображения для арочного окошка -->
+          <div class="form-group full-width">
+            <label>Фотография изделия для «окошечка»</label>
+            <div class="image-uploader-box">
+              <div class="preview-arch-mini">
+                <img id="projectPhotoPreview" src="" alt="Превью проекта">
+              </div>
+              <div class="uploader-controls">
+                <div class="file-input-wrapper">
+                  <label for="projectPhotoFile" class="btn btn-outline" style="cursor: pointer; display: inline-flex;">
+                    📁 Загрузить фото проекта
+                  </label>
+                  <input type="file" id="projectPhotoFile" accept="image/*">
+                </div>
+                <div class="form-group">
+                  <input type="url" id="projectPhotoUrl" placeholder="Или вставьте ссылку на фото: https://...">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Название проекта</label>
+            <input type="text" id="projectTitleInput" required placeholder="Например: Кухня с профилем Gola и островом">
+          </div>
+
+          <div class="form-group">
+            <label>Категория (для фильтра)</label>
+            <select id="projectCategoryInput">
+              <option value="kitchen">Кухни</option>
+              <option value="wardrobe">Шкафы & Гардеробные</option>
+              <option value="living">Гостиные & Спальни</option>
+              <option value="bathroom">Ванные & Другое</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Отображаемый тег категории</label>
+            <input type="text" id="projectCategoryNameInput" placeholder="Кухонный гарнитур">
+          </div>
+
+          <div class="form-group">
+            <label>Формат / Модуль</label>
+            <input type="text" id="projectFormatInput" placeholder="Базис 2024 / Базис-ЧПУ">
+          </div>
+
+          <div class="form-group">
+            <!-- САМОЕ ВАЖНОЕ: ССЫЛКА НА ПРОЕКТ -->
+            <label style="color: var(--accent-gold);">🔗 Ссылка на проект (Куда ведет карточка)</label>
+            <input type="url" id="projectLinkInput" required placeholder="https://disk.yandex.ru/... или https://...">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Краткое описание</label>
+            <textarea id="projectDescInput" placeholder="Фасады, фурнитура, особенности раскроя и присадки..."></textarea>
+          </div>
+
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+          <button type="button" class="btn btn-outline" id="cancelProjectBtn">Отмена</button>
+          <button type="submit" class="btn btn-gold">Сохранить проект</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ВСПЛЫВАЮЩИЙ TOAST -->
+  <div class="toast" id="toastMessage">Сохранено</div>
+
+  <script>
+    // Состояние приложения
+    let state = {
+      profile: {},
+      modules: [],
+      projects: []
+    };
+
+    // DOM Элементы
+    const toast = document.getElementById('toastMessage');
+
+    function showToast(text, type = 'success') {
+      toast.textContent = text;
+      toast.className = `toast show ${type}`;
+      setTimeout(() => {
+        toast.className = 'toast';
+      }, 3000);
+    }
+
+    // 1. Загрузка данных с сервера или data.json
+    async function loadData() {
+      try {
+        const res = await fetch('/api/data');
+        if (!res.ok) throw new Error('API недоступен');
+        state = await res.json();
+      } catch (err) {
+        try {
+          const fallbackRes = await fetch('data.json');
+          if (fallbackRes.ok) {
+            state = await fallbackRes.json();
+          } else {
+            throw new Error('data.json недоступен');
+          }
+        } catch (e2) {
+          showToast('Загружены локальные данные браузера', 'info');
+        }
+      }
+      renderProfile();
+      renderProjects();
+    }
+
+    // 2. Отображение профиля
+    function renderProfile() {
+      const p = state.profile || {};
+      document.getElementById('profName').value = p.name || '';
+      document.getElementById('profBadge').value = p.badge || '';
+      document.getElementById('profTitle').value = p.title || '';
+      document.getElementById('profSubtitle').value = p.subtitle || '';
+      document.getElementById('profExperience').value = p.experience || '';
+      document.getElementById('profProjectsCount').value = p.projectsCount || '';
+      document.getElementById('profStatus').value = p.status || '';
+      document.getElementById('profStatusSub').value = p.statusSub || '';
+
+      document.getElementById('profilePhotoPreview').src = p.photo || '';
+      document.getElementById('profilePhotoUrl').value = p.photo || '';
+
+      document.getElementById('contactTelegram').value = p.telegram || '';
+      document.getElementById('contactTelegramHandle').value = p.telegramHandle || '';
+      document.getElementById('contactWhatsapp').value = p.whatsapp || '';
+      document.getElementById('contactWhatsappPhone').value = p.whatsappPhone || '';
+      document.getElementById('contactPhone').value = p.phone || '';
+      document.getElementById('contactEmail').value = p.email || '';
+    }
+
+    // 3. Отображение списка проектов
+    function renderProjects() {
+      const grid = document.getElementById('adminProjectsGrid');
+      grid.innerHTML = '';
+
+      if (!state.projects || state.projects.length === 0) {
+        grid.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">Проектов пока нет. Нажмите «Добавить проект» выше.</p>';
+        return;
+      }
+
+      state.projects.forEach((proj, idx) => {
+        const card = document.createElement('div');
+        card.className = 'admin-project-card';
+        card.innerHTML = `
+          <div class="project-card-top">
+            <div class="project-arch-thumb">
+              <img src="${proj.image || ''}" alt="${proj.title}">
+            </div>
+            <div class="project-info-mini">
+              <span class="project-tag-pill">${proj.categoryName || proj.category}</span>
+              <h4 class="project-name-mini">${proj.title}</h4>
+              <span class="project-link-preview">🔗 ${proj.link ? proj.link.substring(0, 35) + '...' : 'Без ссылки'}</span>
+            </div>
+          </div>
+          <div class="project-card-actions">
+            <button class="btn btn-outline" onclick="editProject('${proj.id}')">✏️ Изменить</button>
+            <a href="${proj.link}" target="_blank" class="btn btn-outline" style="flex: 0 0 auto;" title="Проверить ссылку">↗</a>
+            <button class="btn btn-danger" onclick="deleteProject('${proj.id}')" style="flex: 0 0 auto;">🗑️</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 4. Загрузка файлов изображений на сервер
+    async function uploadImageFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          try {
+            const base64Data = e.target.result;
+            const res = await fetch('/api/upload', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                filename: file.name,
+                data: base64Data
+              })
+            });
+            const result = await res.json();
+            if (result.success) {
+              resolve(result.url);
+            } else {
+              reject(new Error(result.error));
+            }
+          } catch (err) {
+            reject(err);
+          }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Обработчик загрузки фото профиля
+    document.getElementById('profilePhotoFile').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        showToast('Загрузка фотографии...');
+        const url = await uploadImageFile(file);
+        document.getElementById('profilePhotoPreview').src = url;
+        document.getElementById('profilePhotoUrl').value = url;
+        state.profile.photo = url;
+        showToast('Фото профиля успешно загружено!');
+      } catch (err) {
+        showToast('Ошибка загрузки: ' + err.message, 'error');
+      }
+    });
+
+    document.getElementById('profilePhotoUrl').addEventListener('input', (e) => {
+      document.getElementById('profilePhotoPreview').src = e.target.value;
+      state.profile.photo = e.target.value;
+    });
+
+    // Обработчик загрузки фото проекта
+    document.getElementById('projectPhotoFile').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        showToast('Загрузка фото изделия...');
+        const url = await uploadImageFile(file);
+        document.getElementById('projectPhotoPreview').src = url;
+        document.getElementById('projectPhotoUrl').value = url;
+        showToast('Фото изделия успешно загружено!');
+      } catch (err) {
+        showToast('Ошибка загрузки: ' + err.message, 'error');
+      }
+    });
+
+    document.getElementById('projectPhotoUrl').addEventListener('input', (e) => {
+      document.getElementById('projectPhotoPreview').src = e.target.value;
+    });
+
+    // 5. Сохранение всех данных в data.json
+    async function saveAllData() {
+      // Собираем профиль из формы
+      state.profile = {
+        name: document.getElementById('profName').value,
+        badge: document.getElementById('profBadge').value,
+        title: document.getElementById('profTitle').value,
+        subtitle: document.getElementById('profSubtitle').value,
+        experience: document.getElementById('profExperience').value,
+        projectsCount: document.getElementById('profProjectsCount').value,
+        accuracy: "100%",
+        status: document.getElementById('profStatus').value,
+        statusSub: document.getElementById('profStatusSub').value,
+        photo: document.getElementById('profilePhotoUrl').value,
+        telegram: document.getElementById('contactTelegram').value,
+        telegramHandle: document.getElementById('contactTelegramHandle').value,
+        whatsapp: document.getElementById('contactWhatsapp').value,
+        whatsappPhone: document.getElementById('contactWhatsappPhone').value,
+        phone: document.getElementById('contactPhone').value,
+        email: document.getElementById('contactEmail').value
+      };
+
+      try {
+        const res = await fetch('/api/data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(state)
+        });
+        const result = await res.json();
+        if (result.success) {
+          showToast('Все изменения успешно сохранены на сервере!');
+        } else {
+          throw new Error(result.error);
+        }
+      } catch (err) {
+        // Если сервера нет (GitHub Pages), сохраняем в LocalStorage и напоминаем про экспорт
+        localStorage.setItem('mebel_portfolio_data', JSON.stringify(state));
+        showToast('Сохранено в браузере! Для GitHub скачайте JSON во вкладке «Резервная копия»', 'success');
+      }
+    }
+
+    document.getElementById('saveAllBtn').addEventListener('click', saveAllData);
+
+    // 6. Модальное окно проекта (Добавление / Редактирование)
+    const projectModal = document.getElementById('projectEditModal');
+    const projectForm = document.getElementById('projectForm');
+
+    function openProjectModal(isNew = true, proj = null) {
+      document.getElementById('projectModalTitle').textContent = isNew ? 'Новое арочное окошко проекта' : 'Редактировать проект';
+      document.getElementById('editProjectId').value = isNew ? '' : proj.id;
+      document.getElementById('projectTitleInput').value = isNew ? '' : proj.title;
+      document.getElementById('projectCategoryInput').value = isNew ? 'kitchen' : proj.category;
+      document.getElementById('projectCategoryNameInput').value = isNew ? 'Кухонный гарнитур' : (proj.categoryName || '');
+      document.getElementById('projectFormatInput').value = isNew ? 'Базис 2024' : (proj.format || '');
+      document.getElementById('projectLinkInput').value = isNew ? '' : proj.link;
+      document.getElementById('projectDescInput').value = isNew ? '' : (proj.description || '');
+      document.getElementById('projectPhotoUrl').value = isNew ? '' : (proj.image || '');
+      document.getElementById('projectPhotoPreview').src = isNew ? '' : (proj.image || '');
+
+      projectModal.classList.add('active');
+    }
+
+    function closeProjectModal() {
+      projectModal.classList.remove('active');
+    }
+
+    document.getElementById('addNewProjectBtn').addEventListener('click', () => openProjectModal(true));
+    document.getElementById('closeProjectModal').addEventListener('click', closeProjectModal);
+    document.getElementById('cancelProjectBtn').addEventListener('click', closeProjectModal);
+
+    window.editProject = function(id) {
+      const proj = state.projects.find(p => String(p.id) === String(id));
+      if (proj) openProjectModal(false, proj);
+    };
+
+    window.deleteProject = async function(id) {
+      if (!confirm('Вы уверены, что хотите удалить этот проект?')) return;
+      state.projects = state.projects.filter(p => String(p.id) !== String(id));
+      renderProjects();
+      await saveAllData();
+      showToast('Проект удален');
+    };
+
+    projectForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editProjectId').value;
+      const isNew = !id;
+
+      const projectData = {
+        id: isNew ? String(Date.now()) : id,
+        title: document.getElementById('projectTitleInput').value,
+        category: document.getElementById('projectCategoryInput').value,
+        categoryName: document.getElementById('projectCategoryNameInput').value,
+        format: document.getElementById('projectFormatInput').value,
+        link: document.getElementById('projectLinkInput').value,
+        description: document.getElementById('projectDescInput').value,
+        image: document.getElementById('projectPhotoUrl').value || 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+        specs: [
+          { label: "Модуль Базис", val: document.getElementById('projectFormatInput').value || "Базис-Мебельщик" },
+          { label: "Ссылка", val: "Документация и чертежи" }
+        ]
+      };
+
+      if (isNew) {
+        state.projects.unshift(projectData);
+      } else {
+        const index = state.projects.findIndex(p => String(p.id) === String(id));
+        if (index !== -1) state.projects[index] = { ...state.projects[index], ...projectData };
+      }
+
+      closeProjectModal();
+      renderProjects();
+      await saveAllData();
+      showToast(isNew ? 'Проект успешно добавлен!' : 'Проект обновлен!');
+    });
+
+    // 7. Переключение вкладок
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        btn.classList.add('active');
+        const tabId = btn.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // 8. Экспорт / Импорт JSON
+    document.getElementById('exportJsonBtn').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `mebel_portfolio_backup_${Date.now()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    });
+
+    document.getElementById('importJsonFile').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const imported = JSON.parse(event.target.result);
+          if (imported.profile && imported.projects) {
+            state = imported;
+            renderProfile();
+            renderProjects();
+            await saveAllData();
+            showToast('Резервная копия успешно восстановлена!');
+          } else {
+            showToast('Некорректная структура файла JSON', 'error');
+          }
+        } catch (err) {
+          showToast('Ошибка чтения файла: ' + err.message, 'error');
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    // Инициализация при открытии
+    loadData();
+  </script>
+</body>
+</html>
