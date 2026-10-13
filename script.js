@@ -96,17 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tgH) tgH.textContent = p.telegramHandle;
     }
 
-    const maxUrl = p.max || p.whatsapp;
-    if (maxUrl) {
-      const maxHero = document.getElementById('heroMaxLink') || document.getElementById('heroWhatsappLink');
-      const maxContact = document.getElementById('contactMaxLink') || document.getElementById('contactWhatsappLink');
-      if (maxHero) maxHero.href = maxUrl;
-      if (maxContact) maxContact.href = maxUrl;
+    const vkUrl = p.vk || p.max || p.whatsapp;
+    if (vkUrl) {
+      const vkHero = document.getElementById('heroVkLink') || document.getElementById('heroMaxLink') || document.getElementById('heroWhatsappLink');
+      const vkContact = document.getElementById('contactVkLink') || document.getElementById('contactMaxLink') || document.getElementById('contactWhatsappLink');
+      if (vkHero) vkHero.href = vkUrl;
+      if (vkContact) vkContact.href = vkUrl;
     }
-    const maxDisplay = p.maxPhone || p.maxHandle || p.whatsappPhone;
-    if (maxDisplay) {
-      const maxP = document.getElementById('contactMaxPhone') || document.getElementById('contactWhatsappPhone');
-      if (maxP) maxP.textContent = maxDisplay;
+    const vkDisplay = p.vkHandle || p.maxPhone || p.whatsappPhone;
+    if (vkDisplay) {
+      const vkP = document.getElementById('contactVkHandle') || document.getElementById('contactMaxPhone') || document.getElementById('contactWhatsappPhone');
+      if (vkP) vkP.textContent = vkDisplay;
     }
 
     if (p.phone) {
@@ -302,15 +302,30 @@ document.addEventListener('DOMContentLoaded', () => {
         statusSub: "Кухни, шкафы, гардеробные",
         telegram: "https://t.me/your_telegram",
         telegramHandle: "@your_telegram",
-        max: "https://max.ru",
-        maxPhone: "+7 (999) 000-00-00",
-        whatsapp: "https://max.ru",
-        whatsappPhone: "+7 (999) 000-00-00",
+        vk: "https://vk.com/your_id",
+        vkHandle: "vk.com/your_id",
         phone: "+7 (999) 000-00-00",
         email: "designer@example.com"
       },
       projects: []
     };
+  }
+
+  // Скрытый вход для владельца: 5 быстрых кликов по логотипу «БМ Конструктор» в подвале сайта
+  const secretTrigger = document.getElementById('secretAdminTrigger');
+  if (secretTrigger) {
+    let clickCount = 0;
+    let clickTimer = null;
+    secretTrigger.addEventListener('click', () => {
+      clickCount++;
+      clearTimeout(clickTimer);
+      if (clickCount >= 5) {
+        clickCount = 0;
+        window.location.href = 'admin.html';
+      } else {
+        clickTimer = setTimeout(() => { clickCount = 0; }, 1200);
+      }
+    });
   }
 
   // Запуск

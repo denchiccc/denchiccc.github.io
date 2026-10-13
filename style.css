@@ -26,9 +26,9 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Скругления и тени (прямоугольные окна без скруглений сверху) */
-  --arch-radius: 0;
-  --arch-inner-radius: 0;
+  /* Скругления и тени (маленькие аккуратные радиусы со всех углов) */
+  --arch-radius: 14px;
+  --arch-inner-radius: 10px;
   --radius-card: 16px;
   --radius-pill: 9999px;
 
@@ -637,12 +637,12 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-card);
 }
 
-/* Сама форма прямоугольного окна для фото (без скруглений сверху) */
+/* Сама форма окна для фото (с небольшими скруглениями со всех углов) */
 .arch-window {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 4.7;
-  border-radius: 0;
+  border-radius: var(--arch-radius);
   background: radial-gradient(circle at 50% 25%, #274936 0%, #193123 90%);
   border: 1px solid rgba(212, 175, 55, 0.25);
   box-shadow: var(--shadow-arch);
@@ -687,7 +687,7 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
+  border-radius: var(--arch-inner-radius);
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
   filter: contrast(1.02);
 }
@@ -1314,14 +1314,14 @@ h1, h2, h3, h4 {
     line-height: 1.25;
   }
 
-  /* Пропорциональная прямоугольная рама фотографии профиля */
+  /* Пропорциональная рама фотографии профиля со скругленными углами */
   .profile-arch-frame {
     width: 100%;
     max-width: 290px;
     height: auto;
     aspect-ratio: 3.5 / 4.4;
     margin: 0 auto;
-    border-radius: 0;
+    border-radius: var(--arch-radius);
   }
 
   .profile-floating-badge {

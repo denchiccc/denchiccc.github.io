@@ -26,7 +26,7 @@
       --font-serif: 'Cormorant Garamond', Georgia, serif;
       --font-sans: 'Montserrat', sans-serif;
       --radius: 12px;
-      --arch-radius: 0;
+      --arch-radius: 10px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -239,7 +239,7 @@
     .preview-arch-mini {
       width: 100px;
       height: 120px;
-      border-radius: 0;
+      border-radius: var(--arch-radius);
       overflow: hidden;
       border: 1px solid var(--accent-gold);
       background: #102117;
@@ -687,13 +687,13 @@
           </div>
 
           <div class="form-group">
-            <label>Мессенджер MAX (ссылка)</label>
-            <input type="url" id="contactMax" placeholder="https://max.ru/u/your_id">
+            <label>ВКонтакте (ссылка)</label>
+            <input type="url" id="contactVk" placeholder="https://vk.com/your_id">
           </div>
 
           <div class="form-group">
-            <label>Мессенджер MAX (номер / ID)</label>
-            <input type="text" id="contactMaxPhone" placeholder="+7 (999) 000-00-00">
+            <label>ВКонтакте (отображаемое имя / ID)</label>
+            <input type="text" id="contactVkHandle" placeholder="vk.com/your_id">
           </div>
 
           <div class="form-group">
@@ -952,10 +952,10 @@
       document.getElementById('contactTelegram').value = p.telegram || '';
       document.getElementById('contactTelegramHandle').value = p.telegramHandle || '';
       
-      const maxInp = document.getElementById('contactMax');
-      if (maxInp) maxInp.value = p.max || p.whatsapp || '';
-      const maxPhInp = document.getElementById('contactMaxPhone');
-      if (maxPhInp) maxPhInp.value = p.maxPhone || p.whatsappPhone || '';
+      const vkInp = document.getElementById('contactVk');
+      if (vkInp) vkInp.value = p.vk || p.max || p.whatsapp || '';
+      const vkHInp = document.getElementById('contactVkHandle');
+      if (vkHInp) vkHInp.value = p.vkHandle || p.maxPhone || p.whatsappPhone || '';
 
       document.getElementById('contactPhone').value = p.phone || '';
       document.getElementById('contactEmail').value = p.email || '';
@@ -1121,10 +1121,8 @@
         photo: document.getElementById('profilePhotoUrl').value,
         telegram: document.getElementById('contactTelegram').value,
         telegramHandle: document.getElementById('contactTelegramHandle').value,
-        max: (document.getElementById('contactMax') || {}).value || '',
-        maxPhone: (document.getElementById('contactMaxPhone') || {}).value || '',
-        whatsapp: (document.getElementById('contactMax') || {}).value || '',
-        whatsappPhone: (document.getElementById('contactMaxPhone') || {}).value || '',
+        vk: (document.getElementById('contactVk') || {}).value || '',
+        vkHandle: (document.getElementById('contactVkHandle') || {}).value || '',
         phone: document.getElementById('contactPhone').value,
         email: document.getElementById('contactEmail').value
       };
@@ -1280,7 +1278,7 @@
     const changePasswordForm = document.getElementById('changePasswordForm');
 
     const DEFAULT_LOGIN = 'admin';
-    const DEFAULT_PASS = 'basis2026';
+    const DEFAULT_PASS = '397r;cE4Y3';
 
     function getMasterLogin() {
       return localStorage.getItem('admin_master_login') || DEFAULT_LOGIN;

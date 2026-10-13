@@ -12,10 +12,8 @@
     "accuracy": "100%",
     "telegram": "https://t.me/your_telegram",
     "telegramHandle": "@your_telegram",
-    "max": "https://max.ru",
-    "maxPhone": "+7 (999) 000-00-00",
-    "whatsapp": "https://max.ru",
-    "whatsappPhone": "+7 (999) 000-00-00",
+    "vk": "https://vk.com/your_id",
+    "vkHandle": "vk.com/your_id",
     "phone": "+7 (999) 000-00-00",
     "email": "designer@example.com"
   },
