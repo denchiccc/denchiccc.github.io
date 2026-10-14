@@ -12,6 +12,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
+
+  <!-- Мгновенная предзагрузка данных профиля из кэша LocalStorage до первого рендера страницы -->
+  <script>
+    try {
+      var cachedSiteData = localStorage.getItem('mebel_portfolio_data');
+      if (cachedSiteData) {
+        window.__PRELOADED_DATA__ = JSON.parse(cachedSiteData);
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
@@ -119,11 +129,25 @@
             <div class="arch-border-accent"></div>
             <div class="arch-inner-niche">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" 
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 520'%3E%3Crect width='100%25' height='100%25' fill='%23172c21'/%3E%3C/svg%3E" 
                 alt="Конструктор мебели Базис-Мебельщик" 
                 class="profile-img"
                 id="profilePhoto"
               >
+              <script>
+                // Мгновенная подстановка фото из кэша еще до завершения парсинга страницы
+                (function() {
+                  try {
+                    var d = window.__PRELOADED_DATA__ || (function() {
+                      var s = localStorage.getItem('mebel_portfolio_data');
+                      return s ? JSON.parse(s) : null;
+                    })();
+                    if (d && d.profile && d.profile.photo) {
+                      document.getElementById('profilePhoto').src = d.profile.photo;
+                    }
+                  } catch (e) {}
+                })();
+              </script>
               <div class="profile-shadow-pedestal"></div>
             </div>
             
@@ -139,6 +163,34 @@
         </div>
 
       </div>
+
+      <!-- Мгновенное применение текстовых данных и ссылок профиля из кэша LocalStorage -->
+      <script>
+        (function() {
+          try {
+            var d = window.__PRELOADED_DATA__;
+            if (!d || !d.profile) return;
+            var p = d.profile;
+            if (p.badge) { var el = document.getElementById('profileBadgeText'); if (el) el.textContent = p.badge; }
+            if (p.title) { var el = document.getElementById('profileMainTitle'); if (el) el.innerHTML = p.title + ' <br><span class="italic-serif text-accent">высокой точности</span>'; }
+            if (p.subtitle) { var el = document.getElementById('profileSubtitleText'); if (el) el.textContent = p.subtitle; }
+            if (p.experience) { var el = document.getElementById('statExperience'); if (el) el.textContent = p.experience; }
+            if (p.projectsCount) { var el = document.getElementById('statProjects'); if (el) el.textContent = p.projectsCount; }
+            if (p.accuracy) { var el = document.getElementById('statAccuracy'); if (el) el.textContent = p.accuracy; }
+            if (p.status) { var el = document.getElementById('profileBadgeStatus'); if (el) el.textContent = p.status; }
+            if (p.statusSub) { var el = document.getElementById('profileBadgeSub'); if (el) el.textContent = p.statusSub; }
+            if (p.telegram) {
+              var t = document.getElementById('heroTelegramLink');
+              if (t) t.href = p.telegram;
+            }
+            var vk = p.vk || p.max || p.whatsapp;
+            if (vk) {
+              var v = document.getElementById('heroVkLink');
+              if (v) v.href = vk;
+            }
+          } catch (e) {}
+        })();
+      </script>
     </section>
 
     <!-- СЕКЦИЯ: ЧТО ВХОДИТ В ПРОЕКТИРОВАНИЕ -->

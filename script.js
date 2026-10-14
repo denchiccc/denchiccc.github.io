@@ -30,37 +30,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. Загрузка данных с сервера или локального хранилища
   async function initSite() {
+    // 1. Мгновенно (0 мс) проверяем кэш LocalStorage до любых сетевых запросов
     try {
-      // 1. Проверяем API локального сервера
-      const response = await fetch('/api/data');
-      if (response.ok) {
-        siteData = await response.json();
-      } else {
-        throw new Error('API unavailable');
+      const localSaved = localStorage.getItem('mebel_portfolio_data');
+      if (localSaved) {
+        siteData = JSON.parse(localSaved);
+        // Немедленно отрисовываем профиль и проекты — без малейшего мигания!
+        renderProfileData(siteData.profile);
+        renderProjectsGrid(siteData.projects);
+        setupFilters();
       }
-    } catch (e) {
-      // 2. Если API недоступен (например, на GitHub Pages), загружаем data.json или сохраненные данные
+    } catch (err) {
+      console.warn('Ошибка чтения кэша LocalStorage:', err);
+    }
+
+    // 2. Если запущен локальный Python-сервер (только на localhost) — проверяем /api/data
+    const isLocalServer = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.protocol.startsWith('http');
+
+    if (isLocalServer) {
       try {
-        const localSaved = localStorage.getItem('mebel_portfolio_data');
-        if (localSaved) {
-          siteData = JSON.parse(localSaved);
+        const response = await fetch('/api/data');
+        if (response.ok) {
+          siteData = await response.json();
+          renderProfileData(siteData.profile);
+          renderProjectsGrid(siteData.projects);
+          setupFilters();
+          return;
+        }
+      } catch (e) {
+        // Локальный API недоступен, продолжаем с локальными данными
+      }
+    }
+
+    // 3. Если данных в LocalStorage еще не было (первый визит посетителя на GitHub Pages), загружаем data.json
+    if (!siteData.projects || siteData.projects.length === 0) {
+      try {
+        const fallbackRes = await fetch('data.json');
+        if (fallbackRes.ok) {
+          siteData = await fallbackRes.json();
+          renderProfileData(siteData.profile);
+          renderProjectsGrid(siteData.projects);
+          setupFilters();
         } else {
-          const fallbackRes = await fetch('data.json');
-          if (fallbackRes.ok) {
-            siteData = await fallbackRes.json();
-          } else {
-            throw new Error('data.json unavailable');
-          }
+          throw new Error('data.json unavailable');
         }
       } catch (err) {
         console.warn('Работаем в статическом режиме, загружаем встроенные данные', err);
         siteData = getFallbackData();
+        renderProfileData(siteData.profile);
+        renderProjectsGrid(siteData.projects);
+        setupFilters();
       }
     }
-
-    renderProfileData(siteData.profile);
-    renderProjectsGrid(siteData.projects);
-    setupFilters();
   }
 
   // 3. Заполнение информации о профиле
@@ -78,7 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (p.photo) {
       const photoEl = document.getElementById('profilePhoto');
-      if (photoEl) photoEl.src = p.photo;
+      if (photoEl && photoEl.src !== p.photo) {
+        photoEl.src = p.photo;
+      }
     }
 
     if (p.status) document.getElementById('profileBadgeStatus').textContent = p.status;
