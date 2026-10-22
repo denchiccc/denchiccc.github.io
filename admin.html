@@ -579,6 +579,9 @@
         <a href="index.html" target="_blank" class="btn btn-outline" title="Открыть портфолио в новой вкладке">
           <span>👁 Открыть сайт</span>
         </a>
+        <button id="downloadDataBtn" class="btn btn-outline" style="border-color: var(--accent-gold); color: var(--accent-gold);" title="Скачать готовый data.json для загрузки на GitHub">
+          <span>📥 Скачать data.json для GitHub</span>
+        </button>
         <button id="saveAllBtn" class="btn btn-gold">
           <span>💾 Сохранить всё</span>
         </button>
@@ -1107,6 +1110,7 @@
 
     // 5. Сохранение всех данных в data.json
     async function saveAllData() {
+      state.updatedAt = Date.now();
       // Собираем профиль из формы
       state.profile = {
         name: document.getElementById('profName').value,
@@ -1142,7 +1146,7 @@
       } catch (err) {
         // Если сервера нет (GitHub Pages), сохраняем в LocalStorage и напоминаем про экспорт
         localStorage.setItem('mebel_portfolio_data', JSON.stringify(state));
-        showToast('Сохранено в браузере! Для GitHub скачайте JSON во вкладке «Резервная копия»', 'success');
+        showToast('Сохранено в браузере! Нажмите «Скачать data.json для GitHub» вверху, чтобы обновить сайт на телефоне', 'success');
       }
     }
 
@@ -1234,15 +1238,24 @@
     });
 
     // 8. Экспорт / Импорт JSON
-    document.getElementById('exportJsonBtn').addEventListener('click', () => {
+    function downloadDataJsonFile() {
+      state.updatedAt = Date.now();
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `mebel_portfolio_backup_${Date.now()}.json`);
+      downloadAnchor.setAttribute("download", "data.json");
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
-    });
+      showToast('Файл data.json успешно скачан! Загрузите его на GitHub в ваш репозиторий', 'success');
+    }
+
+    const downloadDataBtn = document.getElementById('downloadDataBtn');
+    if (downloadDataBtn) {
+      downloadDataBtn.addEventListener('click', downloadDataJsonFile);
+    }
+
+    document.getElementById('exportJsonBtn').addEventListener('click', downloadDataJsonFile);
 
     document.getElementById('importJsonFile').addEventListener('change', (e) => {
       const file = e.target.files[0];

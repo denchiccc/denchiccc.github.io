@@ -30,11 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. Загрузка данных с сервера или локального хранилища
   async function initSite() {
+    let localData = null;
+
     // 1. Мгновенно (0 мс) проверяем кэш LocalStorage до любых сетевых запросов
     try {
       const localSaved = localStorage.getItem('mebel_portfolio_data');
       if (localSaved) {
-        siteData = JSON.parse(localSaved);
+        localData = JSON.parse(localSaved);
+        siteData = localData;
         // Немедленно отрисовываем профиль и проекты — без малейшего мигания!
         renderProfileData(siteData.profile);
         renderProjectsGrid(siteData.projects);
@@ -49,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isLocalServer) {
       try {
-        const response = await fetch('/api/data');
+        const response = await fetch('/api/data?t=' + Date.now(), { cache: 'no-store' });
         if (response.ok) {
           siteData = await response.json();
           renderProfileData(siteData.profile);
@@ -62,19 +65,40 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // 3. Если данных в LocalStorage еще не было (первый визит посетителя на GitHub Pages), загружаем data.json
-    if (!siteData.projects || siteData.projects.length === 0) {
-      try {
-        const fallbackRes = await fetch('data.json');
-        if (fallbackRes.ok) {
-          siteData = await fallbackRes.json();
+    // 3. Автоматическая синхронизация с data.json на GitHub (защита от устаревшего мобильного кэша)
+    try {
+      // Запрашиваем data.json с уникальной временной меткой, чтобы браузер (особенно мобильный Safari/Chrome) никогда не отдавал старый кэш
+      const fallbackRes = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
+      if (fallbackRes.ok) {
+        const serverData = await fallbackRes.json();
+        
+        // Определяем, нужно ли обновить данные на экране:
+        const localTime = (localData && localData.updatedAt) || 0;
+        const serverTime = (serverData && serverData.updatedAt) || 0;
+        
+        let shouldUpdate = false;
+        if (!localData || !localData.projects || localData.projects.length === 0) {
+          shouldUpdate = true;
+        } else if (serverTime > 0 && serverTime >= localTime) {
+          shouldUpdate = true;
+        } else if (serverTime === 0 && JSON.stringify(serverData) !== JSON.stringify(localData)) {
+          shouldUpdate = true;
+        }
+
+        if (shouldUpdate) {
+          siteData = serverData;
+          try {
+            localStorage.setItem('mebel_portfolio_data', JSON.stringify(serverData));
+          } catch (e) {}
           renderProfileData(siteData.profile);
           renderProjectsGrid(siteData.projects);
           setupFilters();
-        } else {
-          throw new Error('data.json unavailable');
         }
-      } catch (err) {
+      } else {
+        throw new Error('data.json unavailable');
+      }
+    } catch (err) {
+      if (!siteData.projects || siteData.projects.length === 0) {
         console.warn('Работаем в статическом режиме, загружаем встроенные данные', err);
         siteData = getFallbackData();
         renderProfileData(siteData.profile);
